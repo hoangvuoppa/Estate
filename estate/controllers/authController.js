@@ -37,8 +37,7 @@ let loginController = (req, res) => {
         message: "Lỗi server"
       });
     }
-    if (!results) {
-      console.log('Chay vao dauy');
+    if (!results) { 
       return res.json({
         error: false,
         status: 400,
