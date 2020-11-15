@@ -24,9 +24,9 @@ let isEmailMiddleware = async (req, res, next) => {
     })
   }
 }
-let checkLoginMiddleware = async (req, res, next) => { 
+let checkLoginMiddleware = async (req, res, next) => {
   try {
-    let user = await checkEmailService(req.body.email); 
+    let user = await checkEmailService(req.body.email);
     if (!user) {
       //Nếu không tìm thấy email
       return res.json({
@@ -66,11 +66,12 @@ let checkAuth = async (req, res, next) => {
       })
     }
   } catch (error) {
-    return res.json({
-      error: true,
-      status: 500,
-      message: "Bạn cần đăng nhập "
-    })
+    res.redirect('/login')
+    /*    return res.json({
+         error: true,
+         status: 500,
+         message: "Bạn cần đăng nhập "
+       }) */
   }
 }
 

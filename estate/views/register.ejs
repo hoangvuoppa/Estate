@@ -15,47 +15,55 @@
     <form>
       <!-- name -->
       <div class="md-form">
-        <label for="name">Name</label>
+        <label for="name">Name *</label>
         <input type="text" id="name" class="form-control">
+        <span id="errorName"></span>
       </div>
       <div class="md-form">
-        <label for="birthday">Birthday</label>
+        <label for="birthday">Birthday *</label>
         <input type="date" id="birthday" class="form-control">
       </div>
       <!-- phone -->
       <div class="md-form">
-        <label for="phone">Phone</label>
+        <label for="phone">Phone *</label>
         <input type="number" id="phone" class="form-control">
+        <span id="errorPhone"></span>
       </div>
       <!-- address -->
       <div class="md-form">
         <label for="address">Address</label>
         <input type="text" id="address" class="form-control">
+        <span id="errorAddress"></span>
       </div>
       <!-- Identification -->
       <div class="md-form">
-        <label for="identification">Identification</label>
+        <label for="identification">Identification *</label>
         <input type="number" id="identification" class="form-control">
+        <span id="errorIdentification"></span>
       </div>
       <!-- username -->
       <div class="md-form">
-        <label for="username">username</label>
+        <label for="username">Username *</label>
         <input type="text" id="username" class="form-control">
+        <span id="errorUsername"></span>
       </div>
       <!-- Email -->
       <div class="md-form">
-        <label for="email">E-mail</label>
+        <label for="email">E-mail *</label>
         <input type="email" id="email" class="form-control">
+        <span id="errorEmail"></span>
       </div>
       <!-- Password -->
       <div class="md-form">
-        <label for="password">Password</label>
+        <label for="password">Password *</label>
         <input type="password" id="password" class="form-control">
+        <span id="errorPassword"></span>
       </div>
       <!-- Password -->
       <div class="md-form">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="password" class="form-control">
+        <label for="confirmPassword">Confirm Password *</label>
+        <input type="password" id="confirmPassword" class="form-control">
+        <span id="errorConfirmPassword"></span>
       </div>
       <!-- Sign in button -->
       <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
