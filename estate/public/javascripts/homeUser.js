@@ -114,10 +114,8 @@ $(document).ready(function () {
     }, 2000, 'easeOutExpo');
   });
 });
-$(".blockDropDownOne:last-child").click(() => {
-  Cookies.remove("token"); 
-  sessionStorage.clear();
-  localStorage.clear();
+$(".blockDropDownOne #logout").click(() => {
+  Cookies.remove("token");  
   window.location.href = '/login'; 
 })
 

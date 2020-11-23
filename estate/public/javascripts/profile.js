@@ -7,6 +7,12 @@ function getData() {
     if (!result.error && result.status === 200) {
       var dataUser = result.dataUser;
       console.log(dataUser);
+      if (!dataUser.name) {
+        dataUser.name = 'Bạn cần điền thêm thông tin';
+      }
+      if (!dataUser.phone) dataUser.phone = 'Bạn cần điền thêm thông tin';
+      if (!dataUser.address) dataUser.address = 'Bạn cần điền thêm thông tin';
+      if (!dataUser.identification) dataUser.identification = 'Bạn cần điền thêm thông tin';
       var template = `
 <div class="main-body">
     <!-- Breadcrumb -->
@@ -29,7 +35,7 @@ function getData() {
                 <h4>${dataUser.username}</h4>
                 <p class="text-secondary mb-1">Full Stack Developer</p>
                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                <button class="btn btn-primary">Follow</button>
+                <a data-user = ${dataUser.role} onClick=handleModify.call(this) class="btn btn-primary">Modify</a>
                 <button class="btn btn-outline-primary">Message</button>
               </div>
             </div>
@@ -178,4 +184,13 @@ function getData() {
   }).catch((error) => {
 
   })
+}
+function handleModify() {
+  var roleUser = $(this).attr("data-user");
+  if (roleUser === 'user') {
+    alert("Chỉ Owner mới có thể chỉnh sửa");
+  }
+  if (roleUser === 'owner') {
+    $(this).attr("href", "/modify")
+  }
 } 

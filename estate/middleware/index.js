@@ -1,4 +1,5 @@
 let { getUserByIdService, checkEmailService } = require("../services/userService");
+let { checkIdOwnerService } = require('../services/modifiesOwnerService')
 var jwt = require('jsonwebtoken');
 let isEmailMiddleware = async (req, res, next) => {
   //Check Email có tồn tại không.
@@ -13,7 +14,32 @@ let isEmailMiddleware = async (req, res, next) => {
       return res.json({
         error: true,
         status: 400,
-        message: "Tài khoản đã tồn tại"
+        message: "Tài khoản đã tồn tại",
+      })
+    }
+  } catch (error) {
+    return res.json({
+      error: true,
+      status: 500,
+      message: "Lỗi server isEmail Middleware"
+    })
+  }
+}
+
+let isIdOwnerMiddleware = async (req, res, next) => {
+  //Check Email có tồn tại không.
+  try {
+    console.log(req.body.idOwner);
+    let idOwner = await checkIdOwnerService(req.body.idOwner);
+    if (!idOwner) {
+      //Nếu idOwner không tồn tại
+      next();
+    } else {
+      //Nếu email tồn tại
+      return res.json({
+        error: true,
+        status: 400,
+        messageModify: "Bạn đã gửi thông tin lên cho admin"
       })
     }
   } catch (error) {
@@ -66,12 +92,7 @@ let checkAuth = async (req, res, next) => {
       })
     }
   } catch (error) {
-    res.redirect('/login')
-    /*    return res.json({
-         error: true,
-         status: 500,
-         message: "Bạn cần đăng nhập "
-       }) */
+    res.redirect('/login');
   }
 }
 
@@ -104,5 +125,6 @@ module.exports = {
   checkLoginMiddleware,
   checkAdmin,
   checkAuth,
-  checkOwner
+  checkOwner,
+  isIdOwnerMiddleware
 }

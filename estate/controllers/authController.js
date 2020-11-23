@@ -4,25 +4,18 @@ let {
 } = require('../services/authServices')
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
 
 
 let signUpController = async (req, res) => {
   try {
     // let user = await signUpService(req.body); 
-    console.log("signUpController: ", req.body);
+    console.log("signUpController: ",);
     await signUpService(req.body);
-    return res.json({
-      error: false,
-      status: 200,
-      message: "Đăng ký thành công"
-    })
+    caseSuccess(res, "Đăng ký thành công");
   } catch (error) {
     if (error) {
-      return res.json({
-        error: true,
-        status: 400,
-        message: "Đăng ký không thành công"
-      });
+      caseErrorUser(res, "Đăng ký không thành công");
     }
   }
 }
@@ -31,18 +24,10 @@ let loginController = (req, res) => {
   bcrypt.compare(req.body.password, req.user.password, function (err, results) {
 
     if (err) {
-      return res.json({
-        error: true,
-        status: 500,
-        message: "Lỗi server"
-      });
+      caseErrorServer(res, "Lỗi server");
     }
     if (!results) {
-      return res.json({
-        error: false,
-        status: 400,
-        message: "Sai password"
-      });
+      caseErrorUser(res, "Sai password");
     } else {
 
       // mã hóa id người dùng vào cookie và lưu vào cookie

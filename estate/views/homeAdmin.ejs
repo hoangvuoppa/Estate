@@ -1,11 +1,255 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=`, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>This is home Admin</h1>
-</body>
-</html>
+<%include ./header-footer/header %>
+<link rel="stylesheet" href="/stylesheets/homeAdmin.css">
+
+<div class="topAdmin">
+  <div class="row">
+    <div class="col-sm-4   ">
+      <img class="  emblem" src="https://nodejsrestaurantdashboard.firebaseapp.com/assets/img/logo.png" alt="">
+    </div>
+    <div class="col-sm-8  ">
+      <div class="row">
+        <div class="col-sm-6 offset-sm-6">
+          <div class="icon">
+            <span class="bellIcon">
+              <i class=" far fa-bell"></i>
+            </span>
+            <span class="commentIcon">
+              <i class="far fa-comments"></i>
+            </span>
+            <span class="signOutIcon">
+              <i class="fas fa-sign-out-alt"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="contentAdmin">
+  <div class="row">
+    <div class=" leftContent">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+          aria-controls="v-pills-home" aria-selected="true">
+          <i class="fas fa-home"></i>
+          <span> Home</span>
+        </a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">
+          <i class="far fa-sticky-note"></i>
+          <span> Categories</span>
+
+        </a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+          aria-controls="v-pills-messages" aria-selected="false">
+          <i class="fas fa-list"></i>
+          <span> Menu Items</span>
+        </a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+          aria-controls="v-pills-settings" aria-selected="false">
+          <i class="fas fa-bars"></i>
+          <span> Orders</span>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-12 rightContent">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="titleCatagories">
+                <h5> Home</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="titleCatagories">
+                <h5> Categories</h5>
+                <em> <a href="#v-pills-home">Home</a> -> Categories</em>
+              </div>
+            </div>
+          </div>
+          <div class="row buttomCatagories">
+            <div class="detailButtom">
+              <div class="col-sm-12 titleCatagoriesDetail">Categories Details</div>
+              <a href="#" class=" offset-10 col-sm-2 catagoriesDetailMiddle ">
+                <i class="fas fa-plus"></i>
+                Add New Category
+              </a>
+              <div class="col-sm-12 catagoriesDetailButtom">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Name</th>
+                      <th>Describe</th>
+                      <th>Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>Mark</td>
+                      <td>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>Jacob</td>
+                      <td>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>Larry</td>
+                      <td>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="titleCatagories">
+                <h5> Menu Items</h5>
+                <em> <a href="#v-pills-home">Home</a> -> Menu Items</em>
+              </div>
+            </div>
+          </div>
+          <div class="row buttomCatagories">
+            <div class="detailButtom">
+              <div class="col-sm-12 titleCatagoriesDetail">Items Details</div>
+              <a href="#" class=" offset-10 col-sm-2 catagoriesDetailMiddle ">
+                <i class="fas fa-plus"></i>
+                Add New Item
+              </a>
+              <div class="col-sm-12 catagoriesDetailButtom">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Offers</th>
+                      <th>Price</th>
+                      <th>Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>vegetable salad</th>
+                      <td>Yes</td>
+                      <td>
+                        $14
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>fruit salad</th>
+                      <td>Yes</td>
+                      <td>
+                        $123
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Chicken Salad with Arugula </th>
+                      <td>No</td>
+                      <td>
+                        $11
+                      </td>
+                      <td>
+                        <span class="edit "><i class=" fas fa-edit"></i></span>
+                        <span class="delete  "><i class="fas fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="titleCatagories">
+                <h5> Owners</h5>
+                <em> <a href="#v-pills-home">Home</a> -> Owners Details</em>
+              </div>
+            </div>
+          </div>
+          <div class="row buttomCatagories">
+            <div class="detailButtom">
+              <div class="col-sm-12 titleCatagoriesDetail">Owners Details</div>
+              <a href="#" class=" offset-10 col-sm-2 catagoriesDetailMiddle ">
+                <i class="fas fa-plus"></i>
+                Add New Item
+              </a>
+              <div class="col-sm-12 catagoriesDetailButtom">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>Username</th>
+                      <th>Status</th>
+                      <th>Handle</th>
+
+                    </tr>
+                  </thead>
+
+                  <tbody id="detailOwners">
+
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footerAdmin">
+
+</div>
+<%include ./header-footer/footer %>
+<script src="/javascripts/homeAdmin.js"></script>

@@ -1,41 +1,58 @@
-*{margin: 0;padding: 0;}
+*{
+  margin: 0;padding: 0;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+#errorFullName{
+  display:none;
+  color:red;
+}
  
-span  {
-    color: red;
-} 
-.md-form input,select#role {
-    border: none;
-    border-bottom: 1px solid #CED4DA;
-}
-
-.md-form input:focus,select#role:focus {
-    border-bottom: 2px solid #3F80EA;
-    outline: none;
-    box-shadow: none;
-}
-
 button.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0 {
-    border-radius: 21px;
-    transition: 0.5s;
+    border-radius: 22px;
+    transition: 0.3s;
+    margin: auto;
+}
+
+.md-form input,select {
+    text-align: center;
+    border: none !important;
+    border-bottom: 1px solid #CED4DA !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    outline: none !important;
+}
+
+.md-form input:focus, select:focus, option:focus {
+    border: none !important;
+    box-shadow: none !important;
+    border-bottom: 2px solid #CED4DA !important;
+    outline: none !important;
+}
+
+.md-form {
+    margin-top: 10px;
 }
 
 .md-form label {
     text-align: left !important;
-    display: block;
-    margin-left: 15px;
-    margin-bottom: 2px;
-    margin-top: 10px;
 }
-
-.col-md-8.col-sm-4.col-xs-8.card {
+ 
+.col-md-6.col-sm-4.col-xs-6.card {
+    margin: 100px auto !important;
     box-shadow: 0px 0px 20px 2px rgba(0, 0, 255, .2);
-    margin-top: 15px;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    margin: 15px auto 20px;
-    transition: 0.5s;
     width: 60%;
 }
 
-h5.card-header.info-color.white-text.text-center.py-4 {background: #33B5E5;border-radius: 10px;color: white;}
- 
+.col-md-6.col-sm-4.col-xs-6.card.mt-0.pt-0 {
+    margin: 21px auto 0 !important;
+}
+
+h5.card-header.info-color.white-text.text-center.py-4 {
+    background: #33B5E5;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+} 
