@@ -1,6 +1,7 @@
 let { getUserByIdService, checkEmailService } = require("../services/userService");
 let { checkIdOwnerService } = require('../services/modifiesOwnerService')
-var jwt = require('jsonwebtoken');
+var { Verify } = require('../utils/JWT');
+var { caseErrorUser, caseErrorServer } = require('../utils/returnValue');
 let isEmailMiddleware = async (req, res, next) => {
   //Check Email có tồn tại không.
   try {
@@ -11,18 +12,10 @@ let isEmailMiddleware = async (req, res, next) => {
       next();
     } else {
       //Nếu email tồn tại
-      return res.json({
-        error: true,
-        status: 400,
-        message: "Tài khoản đã tồn tại",
-      })
+      caseErrorUser(res, "Tài khoản đã tồn tại");
     }
   } catch (error) {
-    return res.json({
-      error: true,
-      status: 500,
-      message: "Lỗi server isEmail Middleware"
-    })
+    caseErrorServer(res, "Lỗi server isEmail Middleware");
   }
 }
 
@@ -35,19 +28,12 @@ let isIdOwnerMiddleware = async (req, res, next) => {
       //Nếu idOwner không tồn tại
       next();
     } else {
-      //Nếu email tồn tại
-      return res.json({
-        error: true,
-        status: 400,
-        messageModify: "Bạn đã gửi thông tin lên cho admin"
-      })
+      //Nếu email tồn tại 
+
+      caseErrorUser(res, "Bạn đã gửi thông tin lên cho admin");
     }
   } catch (error) {
-    return res.json({
-      error: true,
-      status: 500,
-      message: "Lỗi server isEmail Middleware"
-    })
+    caseErrorServer(res, "Lỗi server isEmail Middleware");
   }
 }
 let checkLoginMiddleware = async (req, res, next) => {
@@ -55,22 +41,14 @@ let checkLoginMiddleware = async (req, res, next) => {
     let user = await checkEmailService(req.body.email);
     if (!user) {
       //Nếu không tìm thấy email
-      return res.json({
-        error: true,
-        status: 400,
-        message: "Tài khoản không tồn tại "
-      })
+      caseErrorUser(res, "Tài khoản không tồn tại ");
     } else {
       req.user = user;
       next();
     }
   } catch (error) {
     console.log(error);
-    return res.json({
-      error: true,
-      status: 500,
-      message: "Lỗi server checkLogin Middleware"
-    })
+    caseErrorServer(res, "Lỗi server checkLogin Middleware");
   }
 }
 
@@ -79,17 +57,13 @@ let checkAuth = async (req, res, next) => {
   try {
     var token = req.cookies.token || req.body.token;
     // || req.headers.authorization;
-    let data = jwt.verify(token, process.env.JWT_SECRET);
+    let data = Verify(token, process.env.JWT_SECRET);
     let user = await getUserByIdService(data._id);
     if (user) {
       req.userLocal = user;
       next();
     } else {
-      return res.json({
-        error: true,
-        status: 400,
-        message: "Tài khoản không tồn tại"
-      })
+      caseErrorUser(res, "Tài khoản không tồn tại");
     }
   } catch (error) {
     res.redirect('/login');
@@ -100,11 +74,7 @@ let checkAdmin = async (req, res, next) => {
   if (req.userLocal.role == 'admin') {
     next();
   } else {
-    return res.json({
-      message: "Bạn không có quyền",
-      error: true,
-      status: 400
-    })
+    caseErrorUser(res, "Bạn không có quyền");
   }
 }
 
@@ -112,11 +82,7 @@ let checkOwner = async (req, res, next) => {
   if (req.userLocal.role == 'owner') {
     next();
   } else {
-    return res.json({
-      message: "Bạn không có quyền",
-      error: true,
-      status: 400
-    })
+    caseErrorUser(res, "Bạn không có quyền");
   }
 }
 

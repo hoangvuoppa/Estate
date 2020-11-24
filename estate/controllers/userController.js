@@ -1,10 +1,11 @@
-let { getUserByIdService, updateUserService } = require('../services/userService'); 
+let { getUserByIdService, updateUserService } = require('../services/userService');
 let { updateStatusService } = require('../services/modifiesOwnerService')
-var jwt = require('jsonwebtoken');
+var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
+var {Verify} = require('../utils/JWT');
 let getUserDetailController = async (req, res) => {
   try {
     var token = req.cookies.token || req.body.token;
-    var data = jwt.verify(token, process.env.JWT_SECRET);
+    var data = Verify(token, process.env.JWT_SECRET);
     var dataUser = await getUserByIdService(data._id);
     dataUser.password = undefined;
     if (dataUser) {
@@ -17,22 +18,11 @@ let getUserDetailController = async (req, res) => {
       })
     } else {
       //Nếu không tồn tại user 
-      return res.json({
-        error: true,
-        status: 400,
-        message: "Bạn cần đăng nhập"
-      })
+      caseErrorUser(res, "Bạn cần đăng nhập");
     }
   } catch (error) {
-    if (error) {
-      console.log('Error getUserDetailController: ', error);
-    }
-    //Nếu không tồn tại user 
-    return res.json({
-      error: true,
-      status: 400,
-      message: "Error Server"
-    })
+    caseErrorServer(res, "Error Server");
+    //Nếu không tồn tại user  
   }
 }
 
@@ -42,29 +32,14 @@ let updateUserController = async (req, res) => {
     await updateStatusService(idModify, "active");
     var ownerModify = req.body;
     var userModify = await updateUserService(ownerModify.idOwner, ownerModify.name, ownerModify.phone, ownerModify.address, ownerModify.username);
-      if (userModify.nModified > 0) {
-      return res.json({
-        error: false,
-        status: 200,
-        message: 'Cập nhật người dùng thành công'
-      })
+    if (userModify.nModified > 0) {
+      caseSuccess(res, "Cập nhật người dùng thành công");
     } else {
-      return res.json({
-        error: true,
-        status: 400,
-        message: 'Người dùng không tồn tại và sửa không thành công'
-      })
+      caseErrorUser(res, "Người dùng không tồn tại và sửa không thành công");
     }
-  } catch (error) {
-    if (error) {
-      console.log('Error updateUserController: ', error);
-    }
+  } catch (error) { 
     //Nếu không tồn tại user 
-    return res.json({
-      error: true,
-      status: 400,
-      message: "Error Server"
-    })
+    caseErrorServer(res, "Error Server");
   }
 }
 
