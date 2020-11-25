@@ -4,11 +4,11 @@ let { checkAuth, checkOwner } = require('../middleware/index');
 let { checkAuthController } = require('../controllers/authController')
 /* GET login page. */
 router.get('/register', function (req, res, next) {
-  res.render('register');
+  res.render('login_register/register');
 });
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  res.render('login');
+  res.render('login_register/login');
 });
 /* GET home page. */
 router.get('/home', checkAuth, checkAuthController);
@@ -18,14 +18,18 @@ router.get('/', checkAuth, function (req, res, next) {
 });
 /* GET home page. */
 router.get('/profile', checkAuth, function (req, res, next) {
-  res.render('profile', { title: 'Express' });
+  res.render('profile', { title: 'Profile' });
 });
 /* GET home page. */
 router.get('/modify', checkAuth, checkOwner, function (req, res, next) {
-  res.render('modifyOwner', { title: 'Modify' });
+  res.render('owners/modifyOwner', { title: 'Modify' });
 });
 /* GET home page. */
 router.get('/waiting-for-approval', checkAuth, checkOwner, function (req, res, next) {
-  res.render('wait-approve', { title: 'Waiting Approve' });
+  res.render('owners/wait-approve', { title: 'Waiting Approve' });
 });
+router.get('/table', checkAuth, checkOwner, function (req, res,) {
+  res.render('owners/tableList', { title: 'Table List' });
+})
+
 module.exports = router;
