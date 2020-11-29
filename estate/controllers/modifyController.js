@@ -7,15 +7,20 @@ let {
 } = require('../services/modifiesOwnerService');
 var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
 let createModifyController = async (req, res) => {
-  var token = req.cookies.token || req.body.token;
-  var dataOwner = Verify(token, process.env.JWT_SECRET);
-  var idOwner = dataOwner._id;
-  var infoUser = req.body;
-  var owner = await infoUserModifyService(idOwner, infoUser);
-  if (owner) {
-    caseSuccess(res, "Tạo thông tin sửa tài khoản thành công");
-  } else {
-    caseErrorUser(res, "Tạo thông tin sửa tài khoản không thành công");
+  try {
+
+    var token = req.cookies.token || req.body.token;
+    var dataOwner = Verify(token, process.env.JWT_SECRET);
+    var idOwner = dataOwner._id;
+    var infoUser = req.body;
+    var owner = await infoUserModifyService(idOwner, infoUser);
+    if (owner) {
+      caseSuccess(res, "Tạo thông tin sửa tài khoản thành công");
+    } else {
+      caseErrorUser(res, "Tạo thông tin sửa tài khoản không thành công");
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server")
   }
 }
 let getOwnerController = async (req, res) => {
@@ -43,22 +48,31 @@ let getOwnerController = async (req, res) => {
 }
 
 let cancelOwnerController = async (req, res) => {
-  var { idModify } = req.params;
-  var cancelStatus = await updateStatusService(idModify, "cancel");
-  if (cancelStatus) {
-    caseSuccess(res, "Bạn đã hủy thành công");
-  } else {
-    caseErrorUser(res, "Bạn đã hủy không thành công");
+  try {
+
+    var { idModify } = req.params;
+    var cancelStatus = await updateStatusService(idModify, "cancel");
+    if (cancelStatus) {
+      caseSuccess(res, "Bạn đã hủy thành công");
+    } else {
+      caseErrorUser(res, "Bạn đã hủy không thành công");
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server")
   }
 }
 
 let deleteOwnerController = async (req, res) => {
-  var { idModify } = req.params;
-  var deleOwner = await deleteOwnerService(idModify);
-  if (deleOwner) {
-    caseSuccess(res, "Trở về home thành công");
-  } else {
-    caseErrorUser(res, "Trở về home thất bại");
+  try {
+    var { idModify } = req.params;
+    var deleOwner = await deleteOwnerService(idModify);
+    if (deleOwner) {
+      caseSuccess(res, "Trở về home thành công");
+    } else {
+      caseErrorUser(res, "Trở về home thất bại");
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server")
   }
 }
 module.exports = {

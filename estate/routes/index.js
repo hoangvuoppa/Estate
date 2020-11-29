@@ -26,7 +26,7 @@ router.get('/modify', checkAuth, checkOwner, function (req, res, next) {
 });
 /* GET home page. */
 router.get('/waiting-for-approval', checkAuth, checkOwner, function (req, res, next) {
-  res.render('owners/wait-approve', { title: 'Waiting Approve' });
+  res.render('owners/wait-approve-info', { title: 'Waiting Approve' });
 });
 router.get('/table', checkAuth, checkOwner, function (req, res,) {
   res.render('owners/tableList', { title: 'Table List' });

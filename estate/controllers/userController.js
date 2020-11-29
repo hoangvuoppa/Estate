@@ -1,7 +1,7 @@
 let { getUserByIdService, updateUserService } = require('../services/userService');
 let { updateStatusService } = require('../services/modifiesOwnerService')
 var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
-var {Verify} = require('../utils/JWT');
+var { Verify } = require('../utils/JWT');
 let getUserDetailController = async (req, res) => {
   try {
     var token = req.cookies.token || req.body.token;
@@ -37,7 +37,7 @@ let updateUserController = async (req, res) => {
     } else {
       caseErrorUser(res, "Người dùng không tồn tại và sửa không thành công");
     }
-  } catch (error) { 
+  } catch (error) {
     //Nếu không tồn tại user 
     caseErrorServer(res, "Error Server");
   }
