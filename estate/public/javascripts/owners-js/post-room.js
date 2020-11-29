@@ -16,8 +16,7 @@ $("button.submit-post").click(() => {
   var water_price = $('input[name="water_price"]').val();
   var other_utility = $('input[name="other_utility"]').val();
   var time_post = $('select[name="time_post"]').val();
-
-  console.log(kind_room);
+ 
   $.ajax({
     url: '/owners/post-room',
     method: 'post',
@@ -39,7 +38,7 @@ $("button.submit-post").click(() => {
   }).then((result) => {
     if (!result.error && result.status === 200) {
       alert(result.message);
-      window.location.href = '/home';
+      window.location.href = '/table';
     } else {
       alert(result.message);
     }
@@ -66,36 +65,3 @@ function getInfoOwner() {
 
   })
 }
-
-Dropzone.options.uploadWidget = {
-  paramName: 'file',
-  maxFilesize: 2, // MB
-  maxFiles: 1,
-  dictDefaultMessage: 'Kéo ảnh vào đây hoặc click để chọn file',
-  headers: {
-    'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
-  },
-  acceptedFiles: 'image/*',
-  init: function () {
-    this.on('success', function (file, resp) {
-      console.log(file);
-      console.log(resp);
-    });
-    this.on('thumbnail', function (file) {
-      if (file.accepted !== false) {
-        if (file.width < 640 || file.height < 480) {
-          file.rejectDimensions();
-        }
-        else {
-          file.acceptDimensions();
-        }
-      }
-    });
-  },
-  accept: function (file, done) {
-    file.acceptDimensions = done;
-    file.rejectDimensions = function () {
-      done('The image must be at least 640 x 480px')
-    };
-  }
-};

@@ -1,6 +1,7 @@
 <%include ./headerOwner %>
 
 <div class="content">
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -29,64 +30,8 @@
 
     </div>
   </div>
+
 </div>
 
 <%include ./footerOwner %>
-<script>
-  getData();
-  function getData() {
-    $.ajax({
-      method: "GET",
-      url: '/owners/owner-posts'
-    }).then((result) => {
-      var { dataPost } = result;
-      $("tbody.infoPost").empty();
-      var template;
-      dataPost.forEach((element) => {
-        template = ` 
-                <tr>
-                  <td>${element.address_room}</td>
-                  <td>${element.kind_room}</td>
-                  <td>${new Date(element.createdAt).toLocaleString()}</td>
-                  <td>${new Date(element.updatedAt).toLocaleString()}</td>
-                  <td>${element.status}</td>  
-                <tr>
-        `;
-        if (element.status === 'pending') {
-          // Waiting for approval 
-          template = ` 
-                <tr>
-                  <td>${element.address_room}</td>
-                  <td>${element.kind_room}</td>
-                  <td>${new Date(element.createdAt).toLocaleString()}</td>
-                  <td>${new Date(element.updatedAt).toLocaleString()}</td>
-                  <td>${element.status}</td>  
-                  <td>
-                    <a href='/owners/update-post-room' onClick=handleEdit.call(this) type="button" class="btn btn-warning  btn-edit">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    <a type="button" class="btn btn-danger btn-delete">
-                      <i class="fas fa-trash-alt"></i>
-                    </a>
-                  </td>
-                <tr> 
-        `;
-        } else if (element.status === 'active' || element.status === 'cancel') {
-          template = `
-                <tr>
-                  <td>${element.address_room}</td>
-                  <td>${element.kind_room}</td>
-                  <td>${new Date(element.createdAt).toLocaleString()}</td>
-                  <td>${new Date(element.updatedAt).toLocaleString()}</td>
-                  <td>${element.status}</td>  
-                <tr>
-          `;
-        }
-        $("tbody.infoPost").append(template);
-      })
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-  
-</script>
+<script src="../javascripts/owners-js/postDetail.js"></script>

@@ -13,6 +13,9 @@ let findPostService = (idPost) => {
 let updatePostService = (idPost, object) => {
   return PostRoom.updateOne({ _id: idPost }, object);
 }
+let deletePostService = (idPost) => {
+  return PostRoom.deleteOne({ _id: idPost });
+}
 let allPostService = () => {
   return PostRoom.find();
 }
@@ -22,5 +25,6 @@ module.exports = {
   postsOwnerService,
   allPostService,
   updatePostService,
-  findPostService
+  findPostService,
+  deletePostService
 }

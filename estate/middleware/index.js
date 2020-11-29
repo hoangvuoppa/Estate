@@ -79,7 +79,7 @@ let checkAdmin = async (req, res, next) => {
 }
 
 let checkOwner = async (req, res, next) => {
-  if (req.userLocal.role == 'owner') {
+  if (req.userLocal.role == 'owner' || req.userLocal.role == 'admin') {
     next();
   } else {
     caseErrorUser(res, "Bạn không có quyền");

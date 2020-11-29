@@ -3,7 +3,8 @@ var {
   postsOwnerService,
   allPostService,
   updatePostService,
-  findPostService
+  findPostService,
+  deletePostService
 } = require('../services/posterRoomService');
 var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
 var { Verify } = require('../utils/JWT');
@@ -49,14 +50,60 @@ let postsOwnerController = async (req, res) => {
     } else {
       caseErrorUser(res, "Không có thông tin của bài đăng nào");
     }
-    console.log(dataPost);
   } catch (error) {
     caseErrorServer(res, "Error Server");
   }
 }
-let findPostController = async (req, res) => {
-  
-  var post = await findPostService()
+let detailPostController = async (req, res) => {
+  try {
+    var post = await findPostService(req.params.idPost);
+    console.log(typeof post);
+    if (post) {
+      return res.json({
+        status: 200,
+        error: false,
+        dataPost: post,
+        message: "Lấy thông tin bài viết thành công"
+      })
+    } else {
+      caseErrorUser(res, "Bạn không lấy được thông tin của bài viết");
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server");
+  }
+}
+let updatePostController = async (req, res) => {
+  try {
+    req.body.images_room = req.body.images_room.split(",")
+    console.log(req.body);
+    var { idPost } = req.params;
+    var updatePost = await updatePostService(idPost, req.body);
+    if (updatePost) {
+      return res.json({
+        status: 200,
+        error: false,
+        message: "Cập nhật thành công người dùng"
+      })
+    } else {
+      caseErrorUser(res, "Cập nhật không thành công")
+    }
+
+  } catch (error) {
+    caseErrorUser(res, "Error Server");
+  }
+}
+let deletePostController = async (req, res) => {
+  try {
+    var { idPost } = req.params;
+    var deletedPost = await deletePostService(idPost);
+    if (deletedPost) {
+      caseSuccess(res, "Bạn đã xóa bài viết thành công")
+    } else {
+      caseErrorUser(res, "Bạn đã xóa bài đăng không thành công");
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server");
+  }
 }
 
 let allPostsController = async (req, res) => {
@@ -80,5 +127,8 @@ let allPostsController = async (req, res) => {
 module.exports = {
   uploadImageLocalController,
   createPostController,
-  postsOwnerController
+  postsOwnerController,
+  detailPostController,
+  updatePostController,
+  deletePostController
 }
