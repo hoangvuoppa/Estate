@@ -78,19 +78,26 @@ let checkAdmin = async (req, res, next) => {
   }
 }
 
-let checkOwner = async (req, res, next) => {
+let checkOwner_Admin = async (req, res, next) => {
   if (req.userLocal.role == 'owner' || req.userLocal.role == 'admin') {
     next();
   } else {
     caseErrorUser(res, "Bạn không có quyền");
   }
 }
-
+let checkOwner = async (req, res, next) => {
+  if (req.userLocal.role == 'owner') {
+    next();
+  } else {
+    caseErrorUser(res, "Bạn không có quyền");
+  }
+}
 module.exports = {
   isEmailMiddleware,
   checkLoginMiddleware,
   checkAdmin,
   checkAuth,
-  checkOwner,
-  isIdOwnerMiddleware
+  checkOwner_Admin,
+  isIdOwnerMiddleware,
+  checkOwner
 }

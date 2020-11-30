@@ -52,7 +52,7 @@
           }, 1000 * 30);
         }
       } else {
-        window.location.href = '/home';
+        window.location.href = '/';
       }
     }).catch((error) => {
 
@@ -66,7 +66,7 @@
     }).then((result) => {
       if (!result.error && result.status === 200) {
         alert(result.message);
-        window.location.href = '/home';
+        window.location.href = '/';
       }
     }).catch((error) => {
       console.log("This is waiting approve ejs: ", error);

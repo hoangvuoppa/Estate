@@ -9,7 +9,7 @@ $("#btn").click((e) => {
     }
   }).then((data) => {
     if (!data.error && data.status === 200) {
-      window.location.href = '/home';
+      window.location.href = '/';
       alert(data.message);
     } else {
       alert(data.message);

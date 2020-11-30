@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 let {
+  checkOwner,
   checkAuth,
-  checkOwner
+  checkOwner_Admin,
+  checkAdmin
 } = require('../middleware/index');
 let {
   uploadImageLocalController,
@@ -10,28 +12,32 @@ let {
   postsOwnerController,
   detailPostController,
   updatePostController,
-  deletePostController
+  deletePostController,
+  getAllPostsController
 } = require('../controllers/ownerController')
 let upload = require('../controllers/multerController');
 /* GET owners listing. */
-router.use(checkAuth);
-router.use(checkOwner);
-
-router.get('/poster-room', (req, res, next) => {
+router.use(checkAuth); 
+// render post room
+router.get('/poster-room',checkOwner, (req, res, next) => {
   res.render('owners/posterRoom');
 });
+//Delete post
+router.delete('/delete-post-room/:idPost',checkOwner, deletePostController); 
+/* Get all posts owners input local. */
+router.get('/owner-posts',checkOwner, postsOwnerController);
+
+router.use(checkOwner_Admin);
+//Put post
+router.put('/update-post-room/:idPost', updatePostController);
 /* Post room owners input local. */
 router.post('/post-room', createPostController);
 //Get detail post
 router.get('/detail-post/:idPost', detailPostController);
-//Put post
-router.put('/update-post-room/:idPost', updatePostController);
-//Delete post
-router.delete('/delete-post-room/:idPost', deletePostController);
 /* Post images owners input local. */
 router.post('/upload-image', upload.any(), uploadImageLocalController);
-/* Get all posts owners input local. */
-router.get('/owner-posts', postsOwnerController);
-// router.put('/modify', updateUserController);
+
+//Get all post room
+router.get('/all-posts-rent', checkAdmin, getAllPostsController);
 
 module.exports = router;

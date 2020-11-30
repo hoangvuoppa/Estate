@@ -7,7 +7,7 @@ function getData() {
   }).then((result) => {
     var { dataPost } = result;
     $("tbody.infoPost").empty();
-    var template;
+    var template, rentStatus;
     dataPost.forEach((element) => {
       if (element.status === 'pending') {
         // Waiting for approval 
@@ -18,6 +18,7 @@ function getData() {
                   <td>${new Date(element.createdAt).toLocaleString()}</td>
                   <td>${new Date(element.updatedAt).toLocaleString()}</td>
                   <td>${element.status}</td>  
+                  <td></td>
                   <td class='buttonHandle'>
                     <button onClick = handleEditPost.call(this)  data-id = ${element._id}  type="button" class="btn btn-warning "data-toggle="modal" data-target="#btn-edit">
                       <i class="far fa-edit"></i>
@@ -28,18 +29,41 @@ function getData() {
                   </td>
                 <tr> 
         `;
-      } else if (element.status === 'active' || element.status === 'cancel') {
-        template = `
+      } else if (element.status === 'active') {
+        template = `  
                 <tr>
                   <td>${element.address_room}</td>
                   <td>${element.kind_room}</td>
                   <td>${new Date(element.createdAt).toLocaleString()}</td>
                   <td>${new Date(element.updatedAt).toLocaleString()}</td>
                   <td>${element.status}</td>  
+                  <td>${element.rent_status}</td>  
+                  <td></td>  
+                  <td class="button-hired" ></td>  
                 <tr>
+          `;//Not yet hired 
+
+      } else {
+        template = `
+        <tr>
+          <td>${element.address_room}</td>
+          <td>${element.kind_room}</td>
+          <td>${new Date(element.createdAt).toLocaleString()}</td>
+          <td>${new Date(element.updatedAt).toLocaleString()}</td>
+          <td>${element.status}</td>  
+          <td></td>
+        <tr>
           `;
       }
       $("tbody.infoPost").append(template);
+      if (element.status === 'active' && element.rent_status === 'Not yet hired' && $(".button-hired").empty()) {
+        rentStatus = `
+        <button  onClick = handleHiredPost.call(this) style="font-size:13px;padding: 7px; " data-id = ${element._id}  type="button" class="btn btn-primary btn-hired">
+          <i style="  margin-right: 5px;" class="fas fa-check"></i>Hired
+        </button>
+        `;
+        $(".button-hired").append(rentStatus);
+      }
     })
   }).catch((error) => {
     console.log(error);
@@ -210,7 +234,7 @@ function handleEditPost() {
           <div class="col-sm-6">
             <label for="water_price">Water Price</label>
             <input value='${dataPost.water_price}' type="number" class="form-control" name="water_price"
-              id="water_price " aria-describedby="helpId" placeholder="Electricity Price ">
+              id="water_price " aria-describedby="helpId" placeholder="Water Price ">
             <small id="error-water_price" class="form-text text-muted"></small>
           </div>
         </div>
@@ -315,3 +339,24 @@ function handleDeletePost() {
     console.log(error);
   })
 }
+function handleHiredPost() {
+  var idPost = $(this).attr("data-id");
+  console.log(idPost);
+  var rent_status = 'Hired';
+  $.ajax({
+    url: 'owners/update-post-room/' + idPost,
+    method: 'put',
+    data: { rent_status }
+  }).then((result) => {
+    if (!result.error && result.status === 200) {
+      result.message = 'Bạn đã cho thuê thành công';
+      alert(result.message);
+      $(this).parent().empty();
+      window.location.href = '/table';
+    } else {
+      alert(result.message);
+    }
+  }).catch((error) => {
+    console.log(error);
+  })
+} 

@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
 }
+
+span.restore {
+    color: #F04F13;
+    cursor: pointer;
+}
  
 
 tbody#detailOwners button {
@@ -23,13 +28,13 @@ tbody#detailOwners button {
     padding-top: 35px;
 }
 
-span.delete {
+span.cancel {
     color: #EE3D3D;
     font-size: 20px;
     cursor: pointer;
 }
 
-span.delete:hover {
+span.cancel:hover {
     color: #EE3D3D;
 }
  
@@ -64,32 +69,30 @@ span.edit:hover {
 }
  
 .detailButtom {
-    width: 95%;
-    height: 90%;
+    width: 99%;
     background: white;
     border: 1px solid #D0DCE3;
     border-radius: 3px;
     box-shadow: 1px -1px #CFDBE2;
-    margin-left: 15px;
+    margin-left: 0px;
     padding-top: 10px;
 }
  
 body {
-    width: 100vh;
+    width: 98vh;
 }
 
 .buttomCatagories {
-    padding: 25px 0 0 20px;
+    padding: 25px 0 0 50px;
     background: #F5F7FA;
-    height: calc(100vh - 140px);
-    width: 176%;
+    width: 175%;
 }
 
 .titleCatagories {
     background: #FAFBFC !important;
     height: 75px;
     border-bottom: 1px solid #CFDBE2;
-    padding-left: 20px;
+    padding-left: 30px;
     padding-top: 10px;
     width: 174%;
 }
@@ -106,7 +109,7 @@ body {
     color: #929292;
 }
 
-.rightContent {margin-top: 65px;margin-left: 220px;height: 100%;}
+.rightContent {margin-top: 65px;margin-left: 200px;}
 
 div#v-pills-tab {
     width: 100%;
@@ -175,11 +178,12 @@ div#v-pills-tab {
 
 .leftContent {
     width: 220px;
-    height: calc(100vh - 84px);
+    height: calc(100vh - 68px);
     background: #383D4E;
     position: fixed;
     bottom: 0;
     left: 0;
+    top: 68px;
     z-index: 3;
 }
 
@@ -206,7 +210,7 @@ div#v-pills-tab {
     height: 68px;
     background: #1AACDA;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
 }
 
 .topAdmin .emblem {

@@ -74,8 +74,8 @@ let detailPostController = async (req, res) => {
 }
 let updatePostController = async (req, res) => {
   try {
-    req.body.images_room = req.body.images_room.split(",")
-    console.log(req.body);
+    if (req.body.images_room)
+      req.body.images_room = req.body.images_room.split(",");
     var { idPost } = req.params;
     var updatePost = await updatePostService(idPost, req.body);
     if (updatePost) {
@@ -106,7 +106,7 @@ let deletePostController = async (req, res) => {
   }
 }
 
-let allPostsController = async (req, res) => {
+let getAllPostsController = async (req, res) => {
   try {
     var dataPost = await allPostService();
     if (dataPost) {
@@ -120,7 +120,7 @@ let allPostsController = async (req, res) => {
       caseErrorUser(res, "Không có thông tin của bài đăng nào");
     }
   } catch (error) {
-
+    caseErrorUser(res, "Error Server");
   }
 }
 
@@ -130,5 +130,6 @@ module.exports = {
   postsOwnerController,
   detailPostController,
   updatePostController,
-  deletePostController
+  deletePostController,
+  getAllPostsController
 }

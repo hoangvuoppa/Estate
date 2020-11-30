@@ -17,14 +17,13 @@ let deletePostService = (idPost) => {
   return PostRoom.deleteOne({ _id: idPost });
 }
 let allPostService = () => {
-  return PostRoom.find();
-}
-
+  return PostRoom.find().populate("idOwner");
+} 
 module.exports = {
   createPostRoomService,
   postsOwnerService,
   allPostService,
   updatePostService,
   findPostService,
-  deletePostService
+  deletePostService, 
 }
