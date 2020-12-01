@@ -35,18 +35,18 @@ $("#btn-register").click((e) => {
   var password = $("#passwordRegister").val();
   if (password == '') {
     $("#errorPassword").text("Please enter password").show();
-    $("#password").focus();
+    $("#passwordRegister").focus();
     check = false;
   } else {
     //Have at least 8 characters including 1 uppercase, 1 lowercase letter and 1 number: 
     var patternPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     if (!patternPassword.test(password)) {
       $("#errorPassword").text("Please enter right validation. Have at least 8 characters including 1 uppercase, 1 lowercase letter and 1 number").show();
-      $("#password").focus();
+      $("#passwordRegister").focus();
       check = false;
     } else {
       $("#errorPassword").css("display", 'none')
-      $("#password").css('background', '#E8F0FE');
+      $("#passwordRegister").css('background', '#E8F0FE');
     }
   }
   //validation Confirm Password
