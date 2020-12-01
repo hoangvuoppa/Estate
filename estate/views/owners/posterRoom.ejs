@@ -29,6 +29,17 @@
     width: 75% !important;
     margin: auto;
   }
+
+  .payment-post-none {
+    display: none;
+  }
+
+  .well {
+    background: transparent;
+    border: transparent;
+    outline: none;
+    box-shadow: none;
+  }
 </style>
 <div class="text-center w-50 m-auto">
   <div class="form-group">
@@ -48,7 +59,7 @@
   </div>
   <div class="form-group">
     <label for="kind_room">Kind of Room</label>
-    <select class="form-control" name="kind_room" id="kind_room">
+    <select class=" form-control" name="kind_room" id="kind_room">
       <option>Motel Room</option>
       <option>Mini apartment</option>
       <option>Whole house</option>
@@ -162,7 +173,7 @@
     <div class="row">
       <h2 class="col-sm-12">Contact information</h2>
       <span class="infoOwner">
-        
+
       </span>
     </div>
   </div>
@@ -175,7 +186,10 @@
       <option>Year</option>
     </select>
   </div>
-  <button  class="btn btn-primary submit-post">Submit</button>
+  <div class="form-group payment-content">
+
+  </div>
+  <button class="btn btn-primary payment-post">Payment</button>
 </div>
 
 <%include ./footerOwner %>

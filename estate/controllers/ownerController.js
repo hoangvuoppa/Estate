@@ -26,7 +26,7 @@ let createPostController = async (req, res) => {
     console.log(post_room);
     images.length = 0;
     if (post_room) {
-      caseSuccess(res, "Bạn đã tạo bài đăng thành công")
+      caseSuccess(res, "Bạn đã tạo bài đăng thành công. Chờ Admin phê duyệt")
     } else {
       caseErrorUser(res, "Bạn đã tạo bài đăng thất bại");
     }

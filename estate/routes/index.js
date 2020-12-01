@@ -8,7 +8,7 @@ router.get('/register', function (req, res, next) {
 });
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  res.render('login_register/login');
+  res.render('login_register/login_register');
 });
 /* GET Home page. */
 router.get('/', checkAuth, checkAuthController);

@@ -1,9 +1,38 @@
-$("#btnSignin").click((e) => {
+const sign_in_btn = document.querySelector("#sign-in-btn");
+const sign_up_btn = document.querySelector("#sign-up-btn");
+const container = document.querySelector(".container");
+
+sign_up_btn.addEventListener("click", () => {
+  container.classList.add("sign-up-mode");
+});
+
+sign_in_btn.addEventListener("click", () => {
+  container.classList.remove("sign-up-mode");
+});
+$("#btn-login").click((e) => {
+  e.preventDefault();
+  $.ajax({
+    url: "auth/login",
+    method: "post",
+    data: {
+      email: $("#email").val(),
+      password: $("#password").val(),
+    }
+  }).then((data) => {
+    if (!data.error && data.status === 200) {
+      window.location.href = '/';
+      alert(data.message);
+    } else {
+      alert(data.message);
+    }
+  })
+})
+$("#btn-register").click((e) => {
   e.preventDefault();
   var check = true;
 
   //validation Password
-  var password = $("#password").val(); 
+  var password = $("#passwordRegister").val();
   if (password == '') {
     $("#errorPassword").text("Please enter password").show();
     $("#password").focus();
@@ -15,7 +44,7 @@ $("#btnSignin").click((e) => {
       $("#errorPassword").text("Please enter right validation. Have at least 8 characters including 1 uppercase, 1 lowercase letter and 1 number").show();
       $("#password").focus();
       check = false;
-    } else { 
+    } else {
       $("#errorPassword").css("display", 'none')
       $("#password").css('background', '#E8F0FE');
     }
@@ -44,7 +73,7 @@ $("#btnSignin").click((e) => {
     }
   }
   //validation Email
-  var email = $("#email").val();
+  var email = $("#emailRegister").val();
   if (email == '') {
     $("#errorEmail").text("Please enter email").show();
     $("#email").focus();
@@ -53,7 +82,7 @@ $("#btnSignin").click((e) => {
     var patternEmail = /^\w+@[a-zA-Z_]+?(\.[a-zA-Z]{2,3}){1,2}$/
     if (!patternEmail.test(email)) {
       $("#errorEmail").text("Please enter right validation. Example: abc@gmail.com").show();
-      $("#email").focus();
+      $("#emailRegister").focus();
       check = false;
     } else {
       $("#errorEmail").css("display", 'none')
@@ -153,7 +182,7 @@ $("#btnSignin").click((e) => {
       url: "auth/sign-up",
       method: "post",
       data: {
-        email: $("#email").val(),
+        email: $("#emailRegister").val(),
         name: $("#name").val(),
         birthday: $("#birthday").val(),
         phone: $("#phone").val(),
@@ -161,7 +190,7 @@ $("#btnSignin").click((e) => {
         identification: $("#identification").val(),
         username: $("#username").val(),
         role: $("#role").val(),
-        password: $("#password").val(),
+        password: $("#passwordRegister").val(),
       }
     }).then((data) => {
       console.log(data);
