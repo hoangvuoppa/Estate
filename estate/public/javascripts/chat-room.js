@@ -9,7 +9,7 @@ $.ajax({
   method: 'GET',
   url: '/users/user-detail'
 }).then((result) => {
-  name_detail.push(result.dataUser.username)
+  name_detail.push(result.dataUser.name);
 }).catch((error) => {
 
 })
