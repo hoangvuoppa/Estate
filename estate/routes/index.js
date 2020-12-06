@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let { checkAuth, checkOwner } = require('../middleware/index');
+let { checkAuth, checkOwner, checkOwner_Admin } = require('../middleware/index');
 let { checkAuthController } = require('../controllers/authController')
 /* GET login page. */
 router.get('/register', function (req, res, next) {
@@ -26,6 +26,9 @@ router.get('/waiting-for-approval', checkAuth, checkOwner, function (req, res, n
 });
 router.get('/table', checkAuth, checkOwner, function (req, res,) {
   res.render('owners/tableList', { title: 'Table List' });
+})
+router.get('/chat-room', checkAuth, checkOwner_Admin, function (req, res,) {
+  res.render('chat-room', { title: 'Table List' });
 })
 
 module.exports = router;
