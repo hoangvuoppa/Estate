@@ -140,17 +140,33 @@ function getAllPosts() {
     method: 'GET',
   }).then((result) => {
     var { dataPost } = result;
+
     if (!result.error && result.status === 200) {
       var template, rentStatus = '';
       $(".content-all-posts").empty();
       dataPost.sort(compare);
       dataPost.forEach((post) => {
         if (post.status === 'pending') {
-          template = `
+          if (post.rent_status === 'Hired') {
+
+            template = `
           <tr>
             <th>${post.idOwner.name}</th>
             <td>${post.idOwner.role}</td>
-            <td>${new Date(post.createdAt).toLocaleString()}</td>
+            <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+            <td></td>
+            <td>${post.status}</td> 
+            <td></td>
+            <td></td> 
+          </tr> 
+          `;
+          } else {
+            template = `
+          <tr>
+            <th>${post.idOwner.name}</th>
+            <td>${post.idOwner.role}</td>
+            <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+            <td></td>
             <td>${post.status}</td> 
             <td></td>
             <td></td>
@@ -163,20 +179,54 @@ function getAllPosts() {
           </tr> 
           `;
 
+          }
+
         }
         else if (post.status === 'active') {
           if (post.idOwner.role === 'owner') {
-            template = `
+            if (post.rent_status === 'Hired') {
+              template = `
             <tr>
               <th>${post.idOwner.name}</th>
               <td>${post.idOwner.role}</td>
-              <td>${new Date(post.createdAt).toLocaleString()}</td>
+              <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+              <td></td>
               <td>${post.status}</td> 
               <td>${post.rent_status}</td>  
               <td></td> 
               <td></td>  
             </tr> 
             `;
+            } else {
+              template = `
+            <tr>
+              <th>${post.idOwner.name}</th>
+              <td>${post.idOwner.role}</td>
+              <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+              <td>${new Date(post.expire_post).toLocaleDateString()}</td>
+              <td>${post.status}</td> 
+              <td>${post.rent_status}</td>  
+              <td></td> 
+              <td></td>  
+            </tr> 
+            `;
+              if (new Date().getTime() >= new Date(post.expire_post).getTime()) {
+                $.ajax({
+                  url: 'owners/update-post-room/' + post._id,
+                  method: 'put',
+                  data: { status: 'pending' }
+                }).then((result) => { }).catch((error) => { });
+              }
+            }
+
+            /*             setTimeout(() => {
+                          $.ajax({
+                            url: 'owners/update-post-room/' + post._id,
+                            method: 'put',
+                            data: { status: 'pending' }
+                          }).then((result) => { alert(result.message) }).catch((error) => { });
+                          // location.reload();
+                        }, 1000 * 60 * 60 * 24 * post.time_post); Cach 2 */
           }
 
           if (post.rent_status === 'Hired' && post.idOwner.role === 'admin') {
@@ -184,7 +234,8 @@ function getAllPosts() {
             <tr>
               <th>${post.idOwner.name}</th>
               <td>${post.idOwner.role}</td>
-              <td>${new Date(post.createdAt).toLocaleString()}</td>
+              <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+              <td></td>
               <td>${post.status}</td> 
               <td>${post.rent_status}</td>  
               <td></td> 
@@ -197,12 +248,13 @@ function getAllPosts() {
             <tr>
               <th>${post.idOwner.name}</th>
               <td>${post.idOwner.role}</td>
-              <td>${new Date(post.createdAt).toLocaleString()}</td>
+              <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+              <td></td> 
               <td>${post.status}</td> 
               <td>${post.rent_status}</td>  
               <td></td> 
               <td></td> 
-              <td class="button-hired" >
+              <td>
                 <button onClick=handleHiredAdmin.call(this) style="font-size:13px;padding: 7px; " data-id = ${post._id}  type="button" class="btn btn-primary btn-hired">
                    <i style="  margin-right: 5px;" class="fas fa-check"></i>Hired
                 </button>
@@ -216,7 +268,7 @@ function getAllPosts() {
           <tr>
             <th>${post.idOwner.name}</th>
             <td>${post.idOwner.role}</td>
-            <td>${new Date(post.createdAt).toLocaleString()}</td>
+            <td>${new Date(post.createdAt).toLocaleDateString()}</td>
             <td>${post.status}</td>  
             <td></td>  
             <td>
@@ -244,7 +296,7 @@ function handleEditAccept() {
     url: "/owners/detail-post/" + idPost
   }).then((result) => {
     var { dataPost } = result;
-
+    console.log(dataPost);
     $('.content-edit-accept').empty();
     template = `
 <style>
@@ -322,7 +374,7 @@ function handleEditAccept() {
   
   <div class="form-group  col-6  ">
     <label for="time_post">Time the post shows up</label>
-    <p>${dataPost.time_post}</p>        
+    <p>${dataPost.time_post} Day</p>        
   </div>
   <div class="form-group  ">
     <div class="row">
@@ -376,7 +428,7 @@ function handleEditAccept() {
 </div> 
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button onClick = handleAcceptedPost.call(this) data-id = '${dataPost._id} ' type="button" class="btn btn-primary ">Accept</button>
+      <button onClick = handleAcceptedPost.call(this) data-time-post="${dataPost.time_post}" data-id = '${dataPost._id} ' type="button" class="btn btn-primary ">Accept</button>
     </div>
 `;
     $('.content-edit-accept').append(template);
@@ -395,10 +447,12 @@ function handleEditAccept() {
 function handleAcceptedPost() {
   var idPost = $(this).attr("data-id");
   var status = 'active';
+  var timePost = parseInt($(this).attr('data-time-post'));
+  var expire_post = new Date();
   $.ajax({
     url: 'owners/update-post-room/' + idPost,
     method: 'put',
-    data: { status }
+    data: { status, expire_post: expire_post.addDays(timePost) }
   }).then((result) => {
     if (!result.error && result.status === 200) {
       alert(result.message);
@@ -428,7 +482,11 @@ function handleCancelPost() {
     console.log(error);
   })
 }
-
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
 function handleRestorePost() {
   var idPost = $(this).attr("data-id");
   var status = 'pending';

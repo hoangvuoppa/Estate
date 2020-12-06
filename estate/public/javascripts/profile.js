@@ -5,8 +5,7 @@ function getData() {
     url: '/users/user-detail'
   }).then((result) => {
     if (!result.error && result.status === 200) {
-      var dataUser = result.dataUser;
-      console.log(dataUser);
+      var dataUser = result.dataUser; 
       if (!dataUser.name) {
         dataUser.name = 'Bạn cần điền thêm thông tin';
       }

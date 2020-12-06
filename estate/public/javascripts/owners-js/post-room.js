@@ -5,16 +5,8 @@ $("button.payment-post").click(() => {
     url: '/users/user-detail'
   }).then((result) => {
     var { dataUser } = result;
-    var time, price = 2;
-    if (time_post === 'Week') {
-      time = 7;
-    } else if (time_post === 'Month') {
-      time = 30;
-    } else if (time_post === 'Quarter') {
-      time = 90;
-    } else {
-      time = 365;
-    }
+    const price = 2;
+    console.log(typeof time_post);
     var template = `
     <div class="container" style="width:100%">
     <div class="row">
@@ -53,9 +45,9 @@ $("button.payment-post").click(() => {
               <tr>
                 <td class="col-md-9"><em>Time the post shows up</em></h4>
                 </td>
-                <td class="col-md-1" style="text-align: center"> ${time} </td>
+                <td class="col-md-1" style="text-align: center"> ${time_post} </td>
                 <td class="col-md-1 text-center">$${price}</td>
-                <td class="col-md-1 text-center">$${price * time}</td>
+                <td class="col-md-1 text-center">$${price * time_post}</td>
               </tr> 
               <tr>
                 <td>   </td>
@@ -70,10 +62,10 @@ $("button.payment-post").click(() => {
                 </td>
                 <td class="text-center">
                   <p>
-                    <strong>$${price * time}</strong>
+                    <strong>$${price * time_post}</strong>
                   </p>
                   <p>
-                    <strong>$${Math.round((price * time * 0.1) * 100) / 100} </strong>
+                    <strong>$${Math.round((price * time_post * 0.1) * 100) / 100} </strong>
                   </p>
                 </td>
               </tr>
@@ -84,7 +76,7 @@ $("button.payment-post").click(() => {
                   <h4><strong>Total: </strong></h4>
                 </td>
                 <td class="text-center text-danger">
-                  <h4><strong>$${price * time * 0.1 + price * time} </strong></h4>
+                  <h4><strong>$${price * time_post * 0.1 + price * time_post} </strong></h4>
                 </td>
               </tr>
             </tbody>
@@ -99,6 +91,7 @@ $("button.payment-post").click(() => {
       `
     $(".payment-content").append(template);
     $("button.payment-post").addClass('payment-post-none');
+    $('select').attr('disabled', true);
   }).catch((error) => {
   })
 })
@@ -120,6 +113,7 @@ function handleSubmitPost() {
   var water_price = $('input[name="water_price"]').val();
   var other_utility = $('input[name="other_utility"]').val();
   var time_post = $('select[name="time_post"]').val();
+  time_post = parseInt(time_post);
   $.ajax({
     url: '/owners/post-room',
     method: 'post',

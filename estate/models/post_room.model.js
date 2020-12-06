@@ -68,13 +68,17 @@ const posterRoomSchema = mongoose.Schema({
     require: true
   },
   time_post: {
-    type: String,
+    type: Number,
     require: true
   },
   rent_status: {
     type: String,
     require: true,
     default: 'Not yet hired'
+  },
+  expire_post: {
+    type: Date,
+    require: true
   }
 }, {
   collection: 'poster_room',
