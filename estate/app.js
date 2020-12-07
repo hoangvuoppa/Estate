@@ -14,6 +14,7 @@ var authRouter = require('./routes/auth');
 var adminRouter = require('./routes/admin');
 var ownerRouter = require('./routes/owners');
 var modifyOwnerRouter = require('./routes/modifyOwner');
+var notifyRouter = require('./routes/notify');
 var app = express();
 
 // bodyParser
@@ -29,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public', express.static(path.join(__dirname, 'public'))); 
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -37,6 +38,7 @@ app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
 app.use('/owners', ownerRouter);
 app.use('/modify-owner', modifyOwnerRouter);
+app.use('/notify', notifyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

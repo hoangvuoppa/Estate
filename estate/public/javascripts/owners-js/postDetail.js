@@ -14,7 +14,7 @@ function getData() {
         template = ` 
                 <tr>
                   <td>${element.address_room}</td>
-                  <td>${element.kind_room}</td>
+                  <td>${element._id}</td>
                   <td>${new Date(element.createdAt).toLocaleDateString()}</td>
                   <td></td>
                   <td>${element.status}</td>  
@@ -34,7 +34,7 @@ function getData() {
           template = `  
                 <tr>
                   <td>${element.address_room}</td>
-                  <td>${element.kind_room}</td>
+                  <td>${element._id}</td>
                   <td>${new Date(element.createdAt).toLocaleDateString()}</td>
                   <td></td>
                   <td>${element.status}</td>  
@@ -47,7 +47,7 @@ function getData() {
           template = `  
           <tr>
             <td>${element.address_room}</td>
-            <td>${element.kind_room}</td>
+            <td>${element._id}</td>
             <td>${new Date(element.createdAt).toLocaleDateString()}</td>
             <td>${new Date(element.expire_post).toLocaleDateString()}</td>
             <td>${element.status}</td>  
@@ -61,7 +61,7 @@ function getData() {
         template = `
         <tr>
           <td>${element.address_room}</td>
-          <td>${element.kind_room}</td>
+          <td>${element._id}</td>
           <td>${new Date(element.createdAt).toLocaleDateString()}</td>
           <td>${new Date(element.expire_post).toLocaleDateString()}</td>
           <td>${element.status}</td>  
@@ -73,7 +73,7 @@ function getData() {
         template = `  
         <tr>
           <td>${element.address_room}</td>
-          <td>${element.kind_room}</td>
+          <td>${element._id}</td>
           <td>${new Date(element.createdAt).toLocaleDateString()}</td>
           <td>${new Date(element.expire_post).toLocaleDateString()}</td>
           <td>${element.status}</td>  

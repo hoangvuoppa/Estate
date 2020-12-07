@@ -85,5 +85,5 @@ const posterRoomSchema = mongoose.Schema({
   timestamps: true
 });
 
-const posterRoomModel = mongoose.model('Poster Room', posterRoomSchema);
+const posterRoomModel = mongoose.model('poster_room', posterRoomSchema);
 module.exports = posterRoomModel;

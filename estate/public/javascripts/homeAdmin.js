@@ -174,7 +174,7 @@ function getAllPosts() {
               <span class="edit" onClick = handleEditAccept.call(this) data-id='${post._id}' class="btn btn-primary" data-toggle="modal" data-target="#edit-accept">
                 <i class=" fas fa-edit"></i>
               </span>
-              <span  class="cancel"  onClick = handleCancelPost.call(this) data-id='${post._id}'><i class="fas fa-minus-circle"></i></span>
+              <span  class="cancel"  onClick = handleCancelPost.call(this) data-id-owner='${post.idOwner._id}' data-id='${post._id}'><i class="fas fa-minus-circle"></i></span>
             </td>
           </tr> 
           `;
@@ -296,7 +296,7 @@ function handleEditAccept() {
     url: "/owners/detail-post/" + idPost
   }).then((result) => {
     var { dataPost } = result;
-    console.log(dataPost);
+    console.log(dataPost.address_room);
     $('.content-edit-accept').empty();
     template = `
 <style>
@@ -428,7 +428,7 @@ function handleEditAccept() {
 </div> 
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button onClick = handleAcceptedPost.call(this) data-time-post="${dataPost.time_post}" data-id = '${dataPost._id} ' type="button" class="btn btn-primary ">Accept</button>
+      <button onClick = handleAcceptedPost.call(this) data-time-post="${dataPost.time_post}" data-id-owner =  '${dataPost.idOwner} ' data-id = '${dataPost._id} ' type="button" class="btn btn-primary ">Accept</button>
     </div>
 `;
     $('.content-edit-accept').append(template);
@@ -446,6 +446,9 @@ function handleEditAccept() {
 
 function handleAcceptedPost() {
   var idPost = $(this).attr("data-id");
+  var idOwner = $(this).attr("data-id-owner");
+  var content = "của bạn đã được chấp nhận";
+  console.log(idOwner);
   var status = 'active';
   var timePost = parseInt($(this).attr('data-time-post'));
   var expire_post = new Date();
@@ -463,9 +466,20 @@ function handleAcceptedPost() {
   }).catch((error) => {
     console.log(error);
   })
+  $.ajax({
+    url: 'notify/create-notify',
+    method: 'post',
+    data: { idPost, idOwner, content }
+  }).then((result) => {
+    alert(result.message);
+  }).catch((error) => {
+
+  })
 }
 function handleCancelPost() {
   var idPost = $(this).attr("data-id");
+  var idOwner = $(this).attr("data-id-owner");
+  var content = "của bạn đã bị hủy";
   var status = 'cancel';
   $.ajax({
     url: 'owners/update-post-room/' + idPost,
@@ -480,6 +494,15 @@ function handleCancelPost() {
     }
   }).catch((error) => {
     console.log(error);
+  })
+  $.ajax({
+    url: 'notify/create-notify',
+    method: 'post',
+    data: { idPost, idOwner, content }
+  }).then((result) => {
+    alert(result.message);
+  }).catch((error) => {
+
   })
 }
 Date.prototype.addDays = function (days) {

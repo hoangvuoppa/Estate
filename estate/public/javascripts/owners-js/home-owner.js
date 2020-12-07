@@ -1,4 +1,4 @@
-type = ['', 'info', 'success', 'warning', 'danger'];
+divtype = ['', 'info', 'success', 'warning', 'danger'];
 $("#logout").click(() => {
   Cookies.remove("token");
   window.location.href = '/login';
@@ -264,3 +264,74 @@ demo = {
 
 
 }
+
+
+getNotifies();
+function getNotifies() {
+  $.ajax({
+    url: 'notify/owner-notifies',
+    method: 'get'
+  }).then((result) => {
+    if (!result.error && result.status === 200) {
+      var { notifyOwner } = result;
+      console.log(notifyOwner);
+      notifyOwner.forEach(element => {
+        console.log(typeof element.content);
+        $.notify.addStyle('foo', {
+          html:
+
+            "<div>" +
+            "<div class='clearfix'>" +
+            "<div class='title' data-notify-html='title'></div>" +
+            "<div class='buttons'>" +
+            '<button type="button" class="no btn btn-outline-primary btn-rounded waves-effect">Cancel</button>' +
+            `<button type="button" data-notify-id ="${element._id}"  data-notify-text="button" class="yes btn btn-outline-danger btn-rounded waves-effect">Danger</button>` +
+            "</div>" +
+            "</div>" +
+            "</div>"
+        });
+
+        //listen for click events from this style
+        $(document).on('click', '.notifyjs-foo-base .no', function () {
+          //programmatically trigger propogating hide event
+          $(this).trigger('notify-hide');
+        });
+        var content = `
+          Bài viết có id ${element.idPost._id} ${element.content}
+        `
+        var h5 = $('<h5/>').append(content)
+        $.notify({
+          title: h5,
+          button: 'Xóa !'
+        }, {
+          style: 'foo',
+          autoHide: false,
+          clickToHide: false
+        });
+
+      });
+    }
+  }).catch((error) => {
+    console.log(error);
+  })
+}
+
+
+$(document).on('click', '.notifyjs-foo-base .yes', function () {
+  //show button text
+  var idNotify = $(this).attr('data-notify-id');
+  $.ajax({
+    url: 'notify/notify-delete/' + idNotify,
+    method: 'delete'
+  }).then((result) => {
+    if (!result.error && result.status === 200) {
+      alert(result.message);
+    } else {
+      alert(result.message);
+    }
+  }).catch((error) => {
+    console.log(error);
+  })
+  //hide notification
+  $(this).trigger('notify-hide');
+});

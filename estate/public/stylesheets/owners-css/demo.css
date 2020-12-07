@@ -1,5 +1,33 @@
 *{margin:0;padding:0}
 
+.table thead th {
+    text-align: center;
+}
+
+.notifyjs-container {
+    background: lightblue !important;
+}
+
+.notifyjs-arrow {
+    background: lightblue;
+}
+
+.notifyjs-wrapper {
+    background: lightblue;
+    border-radius: 15px;
+}
+
+.notifyjs-container {
+    width: 300px;
+    right: 20px;
+    border-radius: 15px;
+}
+
+.clearfix {
+    width: 300px;
+    text-align: center;
+}
+ 
 td.buttonHandle {
     display: flex;
     flex-direction: column;
@@ -71,3 +99,33 @@ td.buttonHandle {
         position: initial;
     }
 }
+.notifyjs-foo-base {
+  opacity: 0.85;
+  width: 300px;
+  padding: 5px;
+  text-align: center;
+}
+
+.notifyjs-foo-base .title {
+  width: 200px;
+  float: left;
+  margin: 10px 0 0 10px;
+  text-align: center;
+}
+
+.notifyjs-foo-base .buttons {
+  width: 70px;
+  float: right;
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.notifyjs-foo-base button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+  width: 60px;
+  color: black;
+}
+
