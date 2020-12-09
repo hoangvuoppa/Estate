@@ -50,7 +50,7 @@ let loginController = (req, res) => {
 let checkAuthController = (req, res) => {
   var user = req.userLocal
   if (user.role === "admin") {
-    return res.render("admin/homeAdmin");
+    return res.render("admin/dashboard_v1");
   }
   if (user.role === "owner") {
     return res.render("owners/homeOwner");

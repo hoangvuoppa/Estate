@@ -8,69 +8,131 @@ function getData() {
       var dataUser = result.dataUser;
       console.log(dataUser);
       var template = ` 
-      <!-- Form -->
-      <div class="col-md-6 col-sm-4 col-xs-6 card mt-0 pt-0">
-      
-        <h5 class="card-header info-color white-text text-center py-4">
-          <strong>Sign up</strong>
-        </h5>
-      
-        <!--Card content-->
-        <div class="card-body px-lg-5 pt-0  text-center" style="color: #757575;">
-      
-          <!-- Form -->
-            <!-- name -->
-            <div class="md-form">
-              <label for="name">Name </label>
-              <input value="${dataUser.name}" type="text" id="name" class="form-control">
-              <span id="errorName"></span>
-            </div> 
-            <!-- phone -->
-            <div class="md-form">
-              <label for="phone">Phone *</label>
-              <input  value="${dataUser.phone}"  type="number" id="phone" class="form-control">
-              <span id="errorPhone"></span>
-            </div>
-            <!-- address -->
-            <div class="md-form">
-              <label for="address">Address</label>
-              <input   value="${dataUser.address}"  type="text" id="address" class="form-control">
-              <span id="errorAddress"></span>
-            </div> 
-            <!-- username -->
-            <div class="md-form">
-              <label for="username">Username *</label>
-              <input  value="${dataUser.username}" type="text" id="username" class="form-control">
-              <span id="errorUsername"></span>
-            </div>   
-            <!-- Sign in button -->
-            <button onClick=handleSave.call(this) data-id= ${dataUser._id} class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
-              id="btnSignin">Save</button>
 
-            <!-- Social login -->
-      
-            <a type="button" class="btn-floating btn-fb btn-sm">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a type="button" class="btn-floating btn-tw btn-sm">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a type="button" class="btn-floating btn-li btn-sm">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a type="button" class="btn-floating btn-git btn-sm">
-              <i class="fab fa-github"></i>
-            </a>
-            
-            <!-- Register -->
-            <p>Is your profile?
-              <a href="/profile">Profile</a>
-            </p>  
-       
+<style>
+body {
+  background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
+}
+
+.profile-button {
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #682773
+}
+
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #682773;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+
+</style>
+
+
+      <div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+          src="https://bootdey.com/img/Content/avatar/avatar7.png"><span
+          class="font-weight-bold">Amelly</span><span class="text-black-50">amelly12@bbb.com</span><span> </span></div>
+    </div>
+    <div class="col-md-5 border-right">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Profile Settings</h4>
         </div>
-      
-      
+        <div class="row mt-2">
+          <div class="col-md-6"><label class="labels">Name</label>
+          <input value="${dataUser.name}" type="text" id="name" class="form-control">
+          </div>
+          <div class="col-md-6">
+          <label for="phone">Phone *</label>
+              <input  value="0${dataUser.phone}"  type="number" id="phone" class="form-control">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+          <label for="address">Address</label>
+          <input   value="${dataUser.address}"  type="text" id="address" class="form-control">
+          <span id="errorAddress"></span>
+          </div>
+          <div class="col-md-12">
+          <label for="username">Username *</label>
+          <input  value="${dataUser.username}" type="text" id="username" class="form-control">
+          <span id="errorUsername"></span>
+          </div>
+          <div class="col-md-12">
+          <button onClick=handleSave.call(this) data-id= ${dataUser._id} class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+          id="btnSignin">Save</button>
+          </div> 
+        </div>
+        <div class="row mt-3">
+        <p>Is your profile?
+        <a href="/profile-owner">Profile</a>
+      </p>  
+ 
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
         
         `;
       $(".content").append(template);

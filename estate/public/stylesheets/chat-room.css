@@ -41,10 +41,10 @@ a {
 /* Chat Page */
 
 .chat-container {
-	max-width: 1100px;
-	background: #fff;
-	margin: 30px auto;
+	max-width: 1057px;
+	margin: 20px auto;
 	overflow: hidden;
+	background: white;
 }
 
 .chat-header {
@@ -89,6 +89,7 @@ a {
 	padding: 30px;
 	max-height: 500px;
 	overflow-y: scroll;
+	color: black;
 }
 
 .chat-messages .message {
@@ -118,6 +119,7 @@ a {
 
 .chat-form-container form {
 	display: flex;
+	color: black;
 }
 
 .chat-form-container input[type='text'] {

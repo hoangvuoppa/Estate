@@ -305,8 +305,9 @@ function getNotifies() {
           button: 'Xóa !'
         }, {
           style: 'foo',
-          autoHide: false,
-          clickToHide: false
+          autoHide: true,
+          clickToHide: false,    
+          autoHideDelay: 4000,
         });
 
       });

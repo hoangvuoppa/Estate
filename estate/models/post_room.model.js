@@ -16,7 +16,7 @@ const posterRoomSchema = mongoose.Schema({
     type: Number,//ok
   },
   price: {
-    type: String//ok
+    type: Number//ok
   },
   area: {
     type: Number,//ok
