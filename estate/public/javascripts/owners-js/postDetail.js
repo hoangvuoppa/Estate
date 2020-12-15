@@ -80,7 +80,7 @@ function getData() {
           <td>${element.rent_status}</td>  
           <td></td>  
           <td class="button-hiredOwner">
-             <button  onClick = handleHiredPost.call(this) style="font-size:13px;padding: 7px; " data-id = ${element._id}  type="button" class="btn btn-primary btn-hired">
+             <button  onClick = handleHiredPost.call(this) data-id-owner = ${element.idOwner} style="font-size:13px;padding: 7px; " data-id = ${element._id}  type="button" class="btn btn-primary btn-hired">
                   <i style="  margin-right: 5px;" class="fas fa-check"></i>Hired
               </button>
           </td>    
@@ -484,6 +484,8 @@ function handleDeletePost() {
 }
 function handleHiredPost() {
   var idPost = $(this).attr("data-id");
+  var idOwner = $(this).attr("data-id-owner");
+  var content = "đã được thuê";
   console.log(idPost);
   var rent_status = 'Hired';
   $.ajax({
@@ -501,6 +503,11 @@ function handleHiredPost() {
     }
   }).catch((error) => {
     console.log(error);
+  })
+  $.ajax({
+    url: 'notify/create-notify',
+    method: 'post',
+    data: { idPost, idOwner, content }
   })
 }
 $('select').on('change', function () {

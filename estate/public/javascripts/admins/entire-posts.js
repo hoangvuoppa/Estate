@@ -82,6 +82,7 @@ function getAllPosts() {
             template = `
           <tr>
             <th>${post.idOwner.name}</th>
+            <th>${post._id}</th>
             <td>${post.idOwner.role}</td>
             <td>${new Date(post.createdAt).toLocaleDateString()}</td>
             <td></td>
@@ -94,6 +95,7 @@ function getAllPosts() {
             template = `
           <tr>
             <th>${post.idOwner.name}</th>
+            <th>${post._id}</th>
             <td>${post.idOwner.role}</td>
             <td>${new Date(post.createdAt).toLocaleDateString()}</td>
             <td></td>
@@ -118,6 +120,7 @@ function getAllPosts() {
               template = `
             <tr>
               <th>${post.idOwner.name}</th>
+              <th>${post._id}</th>
               <td>${post.idOwner.role}</td>
               <td>${new Date(post.createdAt).toLocaleDateString()}</td>
               <td></td>
@@ -131,6 +134,7 @@ function getAllPosts() {
               template = `
             <tr>
               <th>${post.idOwner.name}</th>
+              <th>${post._id}</th>
               <td>${post.idOwner.role}</td>
               <td>${new Date(post.createdAt).toLocaleDateString()}</td>
               <td>${new Date(post.expire_post).toLocaleDateString()}</td>
@@ -163,6 +167,7 @@ function getAllPosts() {
             template = `
             <tr>
               <th>${post.idOwner.name}</th>
+              <th>${post._id}</th>
               <td>${post.idOwner.role}</td>
               <td>${new Date(post.createdAt).toLocaleDateString()}</td>
               <td></td>
@@ -177,6 +182,7 @@ function getAllPosts() {
             template = `
             <tr>
               <th>${post.idOwner.name}</th>
+              <th>${post._id}</th>
               <td>${post.idOwner.role}</td>
               <td>${new Date(post.createdAt).toLocaleDateString()}</td>
               <td></td> 
@@ -197,6 +203,7 @@ function getAllPosts() {
           template = `
           <tr>
             <th>${post.idOwner.name}</th>
+            <th>${post._id}</th>
             <td>${post.idOwner.role}</td>
             <td>${new Date(post.createdAt).toLocaleDateString()}</td>
             <td>${post.status}</td>  
@@ -378,7 +385,6 @@ function handleAcceptedPost() {
   var idPost = $(this).attr("data-id");
   var idOwner = $(this).attr("data-id-owner");
   var content = "của bạn đã được chấp nhận";
-  console.log(idOwner);
   var status = 'active';
   var timePost = parseInt($(this).attr('data-time-post'));
   var expire_post = new Date();
@@ -389,7 +395,7 @@ function handleAcceptedPost() {
   }).then((result) => {
     if (!result.error && result.status === 200) {
       alert(result.message);
-      window.location.href = '/';
+      window.location.href = '/datatables';
     } else {
       alert(result.message);
     }
@@ -414,7 +420,7 @@ function handleCancelPost() {
   }).then((result) => {
     if (!result.error && result.status === 200) {
       alert(result.message);
-      window.location.href = '/';
+      window.location.href = '/datatables';
     } else {
       alert(result.message);
     }
@@ -442,7 +448,7 @@ function handleRestorePost() {
   }).then((result) => {
     if (!result.error && result.status === 200) {
       alert(result.message);
-      window.location.href = '/';
+      window.location.href = '/datatables';
     } else {
       alert(result.message);
     }
@@ -463,7 +469,7 @@ function handleHiredAdmin() {
       result.message = 'Bạn đã cho thuê thành công';
       alert(result.message);
       $(this).parent().empty();
-      window.location.href = '/';
+      window.location.href = '/datatables';
     } else {
       alert(result.message);
     }

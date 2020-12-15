@@ -3,7 +3,7 @@
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name'); //hiển thị tên phòng  cho lên broadcast
-const userList = document.getElementById('users'); //hiển thị tên phòng  tên user cho lên broadcast
+const usersList = document.getElementById('users'); //hiển thị tên phòng  tên user cho lên broadcast
 var name_detail = [];
 $.ajax({
   method: 'GET',
@@ -80,10 +80,10 @@ function outputRoomName(room) {
 
 // Add users to DOM
 function outputUsers(users) {
-  userList.innerHTML = '';
+  usersList.innerHTML = '';
   users.forEach(user => {
     const li = document.createElement('li');
     li.innerText = user.username;
-    userList.appendChild(li);
+    usersList.appendChild(li);
   });
 }

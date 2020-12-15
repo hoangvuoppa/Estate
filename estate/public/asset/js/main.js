@@ -43,17 +43,7 @@
       });
     }
 
-    var $myCarousel = this;
-    var $firstAnimatingElems = $myCarousel.find('.item:first')
-      .find('[data-animation ^= "animated"]');
 
-    doAnimations($firstAnimatingElems);
-    $myCarousel.carousel('pause');
-    $myCarousel.on('slide.bs.carousel', function (e) {
-      var $animatingElems = $(e.relatedTarget)
-        .find("[data-animation ^= 'animated']");
-      doAnimations($animatingElems);
-    });
   };
 
 
@@ -120,31 +110,10 @@
   };
 
 
-  this.userList = function () {
-
-    $(".user-list ul").niceScroll({
-      touchbehavior: true,
-      cursorcolor: "#FF00FF",
-      cursoropacitymax: 0.6,
-      cursorwidth: 24,
-      usetransition: true,
-      hwacceleration: true,
-      autohidemode: "hidden"
-    });
-
-  };
-
 
   this.rightMenu = function () {
-    $('.opener-right-menu').on('click', function () {
-      userList();
-      $(".user").niceScroll();
-      $(".user ul li").on('click', function () {
-        $(".user-list ul").getNiceScroll().remove();
-        $(".user").hide();
-        $(".chatbox").show(1000);
-        userList();
-      });
+    $('.opener-right-menu').on('click', function () { 
+
 
       $(".close-chat").on("click", function () {
         $(".user").show();
@@ -281,16 +250,7 @@
   $("#left-menu ul li a").ripple();
   $(".ripple div").ripple();
   $("#carousel-example3").carouselAnimate();
-  $("#left-menu .sub-left-menu").niceScroll();
-  $(".sub-mimin-mobile-menu-list").niceScroll({
-    touchbehavior: true,
-    cursorcolor: "#FF00FF",
-    cursoropacitymax: 0.6,
-    cursorwidth: 24,
-    usetransition: true,
-    hwacceleration: true,
-    autohidemode: "hidden"
-  });
+
 
   $(".fileupload-v1-btn").on("click", function () {
     var wrapper = $(this).parent("span").parent("div");
@@ -320,14 +280,39 @@
   });
 
 
-  $("body").tooltip({ selector: '[data-toggle=tooltip]' });
   leftMenu();
   rightMenu();
   treeMenu();
   hide();
 })(jQuery);
 
-$(".signOutIcon").click(() => { 
+$(".signOutIcon").click(() => {
   Cookies.remove("token");
   window.location.href = '/login';
 })
+//hired-notifies
+
+getHiredNotifies();
+function getHiredNotifies() {
+  $.ajax({
+    url: 'notify/hired-notifies',
+    method: 'get'
+  }).then((result) => {
+    if (!result.error && result.status === 200) {
+      var { notifyHired } = result;
+      $('.hired-notifies').empty();
+      notifyHired.forEach((element) => {
+        var template = `
+        <li class="online"> 
+        <div class="name text-center">
+          <h5><b>Bài viết có id ${element.idPost} của chủ trọ: ${element.idOwner.name} ${element.content}</b></h5> 
+        </div> 
+      </li>
+      `;
+        $('.hired-notifies').append(template); 
+      })
+    }
+  }).catch((error) => {
+
+  })
+}

@@ -58,6 +58,7 @@ let checkAuthController = (req, res) => {
   if (user.role === "user") {
     return res.render("users/homeUser");
   }
+  // return res.render("users/homeUser");
 }
 
 module.exports = {

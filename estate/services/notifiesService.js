@@ -7,6 +7,9 @@ let createNotifyService = (infoNotify) => {
 let allNotifyOwnerService = (idOwner) => {
   return Notify.find({ idOwner: idOwner }).populate("idPost");
 }
+let allNotifyHiredService = () => {
+  return Notify.find({ content: "đã được thuê" }).populate("idOwner");
+}
 let deleteNotifyOwnerService = (idNotify) => {
   return Notify.deleteOne({ _id: idNotify })
   // return Notify.deleteOne({_id: idNotify})
@@ -14,5 +17,6 @@ let deleteNotifyOwnerService = (idNotify) => {
 module.exports = {
   createNotifyService,
   deleteNotifyOwnerService,
-  allNotifyOwnerService
+  allNotifyOwnerService,
+  allNotifyHiredService
 }

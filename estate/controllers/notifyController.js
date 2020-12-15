@@ -1,7 +1,8 @@
 var {
   createNotifyService,
   allNotifyOwnerService,
-  deleteNotifyOwnerService
+  deleteNotifyOwnerService,
+  allNotifyHiredService
 } = require('../services/notifiesService');
 var { caseSuccess, caseErrorUser, caseErrorServer } = require('../utils/returnValue');
 var { Verify } = require('../utils/JWT');
@@ -52,9 +53,26 @@ var deleteNotifyOwnerController = async (req, res) => {
   } catch (error) {
     caseErrorUser(res, "Error Server");
   }
+} 
+let allNotifyHiredController = async (req, res) => {
+  try { 
+    var notifyHired = await allNotifyHiredService();
+    if (notifyHired) {
+      res.json({
+        error: false,
+        notifyHired: notifyHired,
+        status: 200
+      })
+    } else {
+      caseErrorUser(res, "Bạn đã không tạo được thông báo")
+    }
+  } catch (error) {
+    caseErrorServer(res, "Error Server");
+  }
 }
 module.exports = {
   createNotifyController,
   displayNotifyController,
-  deleteNotifyOwnerController
+  deleteNotifyOwnerController,
+  allNotifyHiredController
 }
