@@ -35,6 +35,7 @@ body,html {
   min-height: 100vh;
   overflow: hidden;
   position: absolute;
+  max-width: 100%;
 }
 
 .forms-container {
@@ -49,7 +50,7 @@ body,html {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  left: 75%;
+  left: 70%;
   width: 50%;
   transition: 1s 0.7s ease-in-out;
   display: grid;
@@ -73,7 +74,7 @@ form {
 form.sign-up-form.row {
     flex-direction: row !important;
     margin-left: 40px;
-    width: 700px;
+    width: 700px !important;
     padding: 0rem 2rem;
 }
 
@@ -107,6 +108,7 @@ form.sign-in-form {
   position: relative;
   width: 55%;
   overflow: hidden;
+  max-width: 298px;
 }
 
 .input-field.col-6 {
@@ -182,7 +184,7 @@ form.sign-in-form {
   font-weight: 600;
   cursor: pointer;
   transition: 0.5s;
-  margin: auto;
+  margin: 15px auto;
 }
 
 input.btn.solid {
@@ -311,11 +313,137 @@ input.btn.solid {
 .panel.right-panel p {padding-left: 53px;}
 
 .panel.right-panel img {margin-left: 26px;margin-bottom: 25px;}
+ 
+ 
 
-@media (max-width: 870px) {
-  .container {
+
+@media (max-width: 575.98px) { 
+*{margin:0;padding:0;}
+
+form.sign-in-form {
+    top: 0;
+    position: absolute;
+    left: 20%;
+}
+
+form.sign-up-form.row.siginUp {
+}
+ 
+.container {
     min-height: 800px;
     height: 100vh;
+    width: 100vh;
+    max-width: 100vh;
+  }
+  .signin-signup {
+    width: 100%;
+    top: 95%;
+    transform: translate(-50%, -100%);
+    transition: 1s 0.8s ease-in-out;
+    display: inline-block;
+  }
+
+  .signin-signup,
+  .container.sign-up-mode .signin-signup {
+    left: 30%;
+  } 
+
+.signin-signup form .input-field {width: 300px !important;}
+
+.input-field.col-sm-6.col-xs-12 {}
+
+  .panels-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+  }
+
+  .panel {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2.5rem 8%;
+    grid-column: 1 / 2;
+  }
+
+  .right-panel {
+    grid-row: 3 / 4;
+  }
+
+  .left-panel {
+    grid-row: 1 / 2;
+  }
+
+  .image {
+    width: 200px;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
+    display: none;
+  }
+
+  .panel .content {
+    padding-right: 33%;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.8s;
+  }
+
+  .panel h3 {
+    font-size: 1.2rem;
+  }
+
+  .panel p {
+    font-size: 0.7rem;
+    padding: 0.5rem 0;
+  }
+
+  .btn.transparent {
+    width: 110px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+
+  .container:before {
+    width: 1500px;
+    height: 1500px;
+    transform: translateX(-50%);
+    left: 30%;
+    bottom: 68%;
+    right: initial;
+    top: initial;
+    transition: 2s ease-in-out;
+  }
+
+  .container.sign-up-mode:before {
+  }
+
+  .container.sign-up-mode .left-panel .image,
+  .container.sign-up-mode .left-panel .content {
+    transform: translateY(-300px);
+  }
+
+  .container.sign-up-mode .right-panel .image,
+  .container.sign-up-mode .right-panel .content {
+    transform: translateY(0px);
+  }
+
+  .right-panel .image,
+  .right-panel .content {
+    transform: translateY(300px);
+  }
+
+  .container.sign-up-mode .signin-signup {
+    top: 5%;
+    transform: translate(-50%, 0);
+  }
+}
+ 
+@media (min-width: 576px) and (max-width: 768px) { 
+*{margin:0;padding:0;}
+.container {
+    min-height: 800px;
+    height: 100vh;
+    width: 100vh;
+    position: relative;
+    max-width: 100vh;
   }
   .signin-signup {
     width: 100%;
@@ -326,7 +454,7 @@ input.btn.solid {
 
   .signin-signup,
   .container.sign-up-mode .signin-signup {
-    left: 50%;
+    left: 40%;
   }
 
   .panels-container {
@@ -413,30 +541,5 @@ input.btn.solid {
     top: 5%;
     transform: translate(-50%, 0);
   }
-}
 
-@media (max-width: 570px) {
-  form {
-    padding: 0 1.5rem;
-  }
-
-  .image {
-    display: none;
-  }
-  .panel .content {
-    padding: 0.5rem 1rem;
-  }
-  .container {
-    padding: 1.5rem;
-  }
-
-  .container:before {
-    bottom: 72%;
-    left: 50%;
-  }
-
-  .container.sign-up-mode:before {
-    bottom: 28%;
-    left: 50%;
-  }
-}
+ }
