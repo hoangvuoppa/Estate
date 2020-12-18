@@ -55,15 +55,21 @@ let checkLoginMiddleware = async (req, res, next) => {
 //Check xem da dang nhap chua
 let checkAuth = async (req, res, next) => {
   try {
+
     var token = req.cookies.token || req.body.token;
     // || req.headers.authorization;
-    let data = Verify(token, process.env.JWT_SECRET);
-    let user = await getUserByIdService(data._id);
-    if (user) {
-      req.userLocal = user;
-      next();
+    if (token) {
+      let data = Verify(token, process.env.JWT_SECRET);
+      let user = await getUserByIdService(data._id);
+      if (user) {
+        req.userLocal = user;
+        next();
+      } else {
+        caseErrorUser(res, "Tài khoản không tồn tại");
+      }
     } else {
-      caseErrorUser(res, "Tài khoản không tồn tại");
+      next();
+      res.redirect('/');
     }
   } catch (error) {
     res.redirect('/login');

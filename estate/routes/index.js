@@ -11,6 +11,15 @@ router.get('/register', function (req, res, next) {
   res.render('login_register/register');
 });
 /* GET Home page. */
+
+router.get('/list', function(req, res, next){
+   res.render('renter/list');
+
+});
+router.get('/favorite', function(req, res, next){
+  res.render('renter/favorite');
+});
+
 router.get('/', checkAuth, checkAuthController);
 /* GET profile page. */
 router.get('/profile-owner', checkAuth, function (req, res, next) {

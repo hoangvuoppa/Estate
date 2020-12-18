@@ -49,16 +49,18 @@ let loginController = (req, res) => {
 
 let checkAuthController = (req, res) => {
   var user = req.userLocal
-  if (user.role === "admin") {
-    return res.render("admin/dashboard_v1");
+  if (user) {
+    if (user.role === "admin") {
+      return res.render("admin/dashboard_v1");
+    }
+    if (user.role === "owner") {
+      return res.render("owners/homeOwner");
+    }
+    if (user.role === "user") {
+      return res.render("renter/home");
+    }
   }
-  if (user.role === "owner") {
-    return res.render("owners/homeOwner");
-  }
-  if (user.role === "user") {
-    return res.render("users/homeUser");
-  }
-  // return res.render("users/homeUser");
+  return res.render("renter/home");
 }
 
 module.exports = {
