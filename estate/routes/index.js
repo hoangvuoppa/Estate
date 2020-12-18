@@ -5,7 +5,10 @@ let { checkAuthController } = require('../controllers/authController')
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  res.render('login_register/login_register');
+  res.render('login_register/login');
+});
+router.get('/register', function (req, res, next) {
+  res.render('login_register/register');
 });
 /* GET Home page. */
 router.get('/', checkAuth, checkAuthController);
