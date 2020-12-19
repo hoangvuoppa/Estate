@@ -14,7 +14,7 @@ $("button.payment-post").click(() => {
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6">
             <address>
-              <strong>Elf Post Room</strong>
+            <strong>Chi tiết hóa đơn</strong>
               <br>
               ${dataUser.address}
               <br> 
@@ -23,27 +23,27 @@ $("button.payment-post").click(() => {
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 text-right">
             <p>
-              <em>Date:${new Date().toLocaleDateString()}</em>
+              <em>Ngày:${new Date().toLocaleDateString()}</em>
             </p> 
           </div>
         </div>
         <div class="row">
           <div class="text-center">
-            <h1>Receipt</h1>
+            <h1>Hóa Đơn</h1>
           </div>
           </span>
           <table class="table table-hover ">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Number Day</th>
-                <th class="text-center">Price / Day</th>
-                <th class="text-center">Total</th>
+                <th></th>
+                <th>Số ngày</th>
+                <th class="text-center">Giá / Ngày</th>
+                <th class="text-center">Tổng cộng</th>
               </tr>
             </thead>
             <tbody class='text-center' >
               <tr>
-                <td class="col-md-9"><em>Time the post shows up</em></h4>
+                <td class="col-md-9"><em>Thời gian bài viết</em></h4>
                 </td>
                 <td class="col-md-1" style="text-align: center"> ${time_post} </td>
                 <td class="col-md-1 text-center">$${price}</td>
@@ -54,10 +54,10 @@ $("button.payment-post").click(() => {
                 <td>   </td>
                 <td class="text-right">
                   <p>
-                    <strong>Subtotal: </strong>
+                    <strong>Tổng cộng: </strong>
                   </p>
                   <p>
-                    <strong>Tax: </strong>
+                    <strong>Thuế: </strong>
                   </p>
                 </td>
                 <td class="text-center">
@@ -73,7 +73,7 @@ $("button.payment-post").click(() => {
                 <td>   </td>
                 <td>   </td>
                 <td class="text-right">
-                  <h4><strong>Total: </strong></h4>
+                  <h4><strong>Tổng tiền: </strong></h4>
                 </td>
                 <td class="text-center text-danger">
                   <h4><strong>$${price * time_post * 0.1 + price * time_post} </strong></h4>
@@ -82,7 +82,7 @@ $("button.payment-post").click(() => {
             </tbody>
           </table>
           <button type="button" onClick=handleSubmitPost.call(this) class="btn btn-success btn-lg btn-inline-block ">
-            Pay Now  <i class="fas fa-chevron-right"></i>
+            Thanh toán ngay  <i class="fas fa-chevron-right"></i>
           </button></td>
         </div>
       </div>
