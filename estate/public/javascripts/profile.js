@@ -14,17 +14,9 @@ function getData() {
       if (!dataUser.identification) dataUser.identification = 'Bạn cần điền thêm thông tin';
       var template = `
 <div class="main-body">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="main-breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-      </ol>
-    </nav>
     <!-- /Breadcrumb -->
     <div class="row gutters-sm">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-4 mb-3 mt-2">
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">

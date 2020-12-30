@@ -29,6 +29,22 @@ function getData() {
                   </td>
                 <tr> 
         `;
+      } else if (element.status === 'expired') {
+        template = ` 
+        <tr>
+          <td>${element.address_room}</td>
+          <td>${element._id}</td>
+          <td>${new Date(element.createdAt).toLocaleDateString()}</td>
+          <td></td>
+          <td>${element.status}</td>  
+          <td></td>
+          <td class='buttonHandle'>
+            <button onClick = handleExtend.call(this)  data-id = ${element._id}  type="button" class="btn btn-warning "data-toggle="modal" data-target="#btn-edit">
+              <i class="fas fa-external-link-square-alt"></i>
+            </button>
+          </td>
+        <tr> 
+      `;
       } else if (element.status === 'active') {
         if (element.rent_status === 'Hired') {
           template = `  
@@ -95,6 +111,223 @@ function getData() {
     console.log(error);
   })
 }
+function handleExtend() {
+  // cho vao model:  .content-update
+  // Khi mà bấm vào nút gia hạn
+  var idPost = $(this).attr("data-id");
+  $.ajax({
+    ///detail-post/:idPost. Lấy thông tin của bài viết
+    method: 'GET',
+    url: "/owners/detail-post/" + idPost
+  }).then((result) => {
+    var { dataPost } = result;
+    $('.content-update').empty();
+    // Hiện modal lên
+    template = `
+       
+ <style>
+   * {
+     margin: 0;
+     padding: 0
+   }
+ 
+   .images-detail .image-room {
+     width: 20%;
+ 
+   }
+ 
+   label.hot-cold-bottles {
+     display: block;
+     margin-bottom: 12px;
+   }
+ 
+   label.general-owner {
+     float: left;
+   }
+ 
+ 
+   label.general-owner+input {
+     margin-left: 180px;
+   }
+ 
+   input#general-owner+span {
+     width: 100px;
+     display: inline-block;
+   }
+ 
+   input,
+   select {
+     width: 75% !important;
+     margin: auto;
+   }
+   .payment-post-none {
+     display: none;
+   }
+   .well {
+     background: transparent;
+     border: transparent;
+     outline: none;
+     box-shadow: none;
+   }
+ </style>
+  
+ <div>
+   <div class="form-group">
+     <label for="address_room ">Address Room *</label>
+     <input value='${dataPost.address_room}' disabled type="text" class="form-control" name="address_room" id="address_room ">
+     <small id="error-address_room" class="form-text text-muted"></small>
+   </div>
+   <div class="form-group">
+     <label for="near_places ">Near any public places</label>
+ 
+     <input value='${dataPost.near_places}' disabled type="text" class="form-control" name="near_places" id="near_places"
+       aria-describedby="helpId" placeholder="Enter Near any public places">
+ 
+     <small id="error-near_places" class="form-text text-muted"></small>
+ 
+   </div>
+   <div class="form-group">
+     <label for="kind_room">Kind of Room</label>
+     <select class="form-control" name="kind_room" id="kind_room" disabled>
+       <option value='${dataPost.kind_room}' hidden>${dataPost.kind_room}</option>
+       <option value='Motel Room'>Motel Room</option>
+       <option value='Mini apartment'>Mini apartment</option>
+       <option value='Whole house'>Whole house</option>
+     </select>
+   </div>
+   <div class="form-group">
+     <label for="number_room">Number of Room</label>
+     <input value='${dataPost.number_room}' disabled type="number" class="form-control" name="number_room" id="c"
+       aria-describedby="helpId" placeholder="Enter Number of Room">
+     <small id="error-number_room" class="form-text text-muted"></small>
+   </div>
+ 
+   <div class="form-group">
+     <label for="price">Prices</label>
+     <input value='${dataPost.price}' disabled type="text" class="form-control" name="price" id="price" aria-describedby="helpId"
+       placeholder="Enter Near any public price month/quarter/year">
+     <small id="error-price" class="form-text text-muted"></small>
+   </div>
+ 
+ 
+   <div class="form-group">
+     <label for="area">Area</label>
+     <input value='${dataPost.area}' disabled type="number" class="form-control" name="area" id="area" aria-describedby="helpId"
+       placeholder="Enter Area">
+     <small id="error-area" class="form-text text-muted"></small>
+   </div>
+   <div class="form-group">
+     <label for="general_owner">General owner</label>
+     <select class="form-control" name="general_owner" disabled id="general_owner">
+       <option value= '${dataPost.general_owner}' hidden>${dataPost.general_owner}</option>
+       <option value= 'Yes' >Yes</option>
+       <option value= 'No' >No</option>
+     </select>
+   </div>
+   <div class="form-group">
+     <div class="row">
+       <h2 class="col-sm-12">Physical facilities</h2>
+       <div class="col-sm-6">
+         <label for="bathroom">Bathroom *</label>
+         <select class="form-control" name="bathroom" disabled id="bathroom">
+           <option value= '${dataPost.bathroom}' hidden>${dataPost.bathroom}</option>
+ 
+           <option value= 'Closed'>Closed</option>
+           <option value= 'General'>General</option>
+         </select>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <label for="hot_cold_bottles">Hot and cold bottles *</label>
+         <select class="form-control" disabled name="hot_cold_bottles" id="hot_cold_bottles">
+           <option value= '${dataPost.hot_cold_bottles}' hidden>${dataPost.hot_cold_bottles}</option>
+           <option value= 'Yes'>Yes</option>
+           <option value= 'No'>No</option>
+         </select>
+       </div>
+       <div class="col-sm-6">
+         <label for="kitchen">Kitchen Room</label>
+         <select class="form-control" disabled name="kitchen" id="kitchen">
+           <option value= '${dataPost.kitchen}' hidden>${dataPost.kitchen}</option>
+           <option value= 'Closed'>Closed</option>
+           <option value= 'General'>General</option>
+         </select>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <label for="cooking">Cooking</label>
+         <select class="form-control" disabled name="cooking" id="cooking">
+           <option value= '${dataPost.cooking}' hidden>${dataPost.cooking}</option>
+           <option value= 'Yes' >Yes</option>
+           <option value= 'No' >No</option>
+         </select>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <label for="conditioning">Air Conditioning</label>
+         <select class="form-control" disabled name="conditioning" id="conditioning">
+           <option value= '${dataPost.conditioning}' hidden>${dataPost.conditioning}</option>
+           <option value= 'Yes' >Yes</option>
+           <option value= 'No' >No</option>
+         </select>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <label for="balcony">Balcony</label>
+         <select class="form-control" disabled name="balcony" id="balcony">
+           <option value= '${dataPost.balcony}' hidden>${dataPost.balcony}</option>
+           <option value= 'Yes' >Yes</option>
+           <option value= 'No' >No</option>
+         </select>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <div class="row">
+           <div class="col-sm-6">
+             <label for="electricity_price">Electricity Price</label>
+             <input value='${dataPost.electricity_price}' disabled type="number" class="form-control" name="electricity_price"
+               id="electricity_price " aria-describedby="helpId" placeholder="Electricity Price ">
+             <small id="error-electricity_price" class="form-text text-muted"></small>
+           </div>
+           <div class="col-sm-6">
+             <label for="water_price">Water Price</label>
+             <input value='${dataPost.water_price}' disabled type="number" class="form-control" name="water_price"
+               id="water_price " aria-describedby="helpId" placeholder="Water Price ">
+             <small id="error-water_price" class="form-text text-muted"></small>
+           </div>
+         </div>
+       </div><!-- ennd col-6 -->
+       <div class="col-sm-6">
+         <label for="other_utility">Other Utility</label>
+         <input value='${dataPost.other_utility}' disabled type="text" class="form-control" name="other_utility"
+           id="other_utility " aria-describedby="helpId"
+           placeholder="Refrigerator / Washing machine / Bed cabinet etc...">
+         <small id="error-other_utility" class="form-text text-muted"></small>
+       </div><!-- ennd col-6 -->
+     </div>
+   </div> 
+   <div class="form-group">
+     <label for="time_post">Time the post shows up</label>
+     <select class="form-control" name="time_post"  id="time_post">
+       <option value= '${dataPost.time_post}' hidden>${dataPost.time_post}</option>
+       <option value= '7' >7</option>
+       <option value= '30'>30 </option>
+       <option value= '90'>90</option>
+       <option value= '365'>365</option>
+     </select>
+   </div>
+   <div class="  paymentDetail">
+ 
+   </div>
+   
+ </div>
+         <div class="modal-footer save-changes-update">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           <button onClick=handlePaymentPost.call(this) data-status = '${dataPost.status}' data-id = "${dataPost._id}" data-images =  ${dataPost.images_room}  type="button" class="btn btn-primary payment-edit">Payment</button>
+         </div>
+ `;
+    $('.content-update').append(template);
+  }).catch((error) => {
+    console.log(error);
+  })
+}
+
+
 function handleEditPost() {
   // cho vao model:  .content-update
   var idPost = $(this).attr("data-id");
@@ -313,6 +546,7 @@ function handleEditPost() {
 function handlePaymentPost() {
   var time_post = $('select[name="time_post"]').val();
   var idPost = $(this).attr('data-id');
+  var statusPost = $(this).attr('data-status');
   var images_room = $(this).attr('data-images');
   $.ajax({
     method: 'GET',
@@ -404,7 +638,7 @@ function handlePaymentPost() {
     $(".paymentDetail").append(template);
     $("button.payment-edit").addClass('payment-post-none');
     $(".save-changes-update").append(`
-    <button onClick=handleSavePost.call(this) data-id = "${idPost}" data-images = ' ${images_room}'  type="button" class="btn btn-primary">Save changes<i class="fas fa-chevron-right"></i></button>
+    <button onClick=handleSavePost.call(this) data-id = "${idPost}" data-status = '${statusPost}' data-images = ' ${images_room}'  type="button" class="btn btn-primary">Save changes<i class="fas fa-chevron-right"></i></button>
     `)
     $('select').attr('disabled', true);
   }).catch((error) => {
@@ -413,7 +647,7 @@ function handlePaymentPost() {
 
 
 function handleSavePost() {
-
+  var statusPost = $(this).attr('data-status');
   var idPost = $(this).attr('data-id');
   var images_room = $(this).attr('data-images');
 
@@ -434,7 +668,39 @@ function handleSavePost() {
   var water_price = $('input[name="water_price"]').val();
   var other_utility = $('input[name="other_utility"]').val();
   var time_post = $('select[name="time_post"]').val();
+  if (statusPost === 'expired') {
+    // Khi Bấm vào nó sẽ đổi thành về pending để chờ admin phê duyệt
+    $.ajax({
+      method: 'put',
+      url: '/owners/update-post-room/' + idPost,
+      data: {
+        address_room,
+        kind_room,
+        near_places,
+        number_room,
+        price,
+        area,
+        general_owner, bathroom,
+        hot_cold_bottles, kitchen, cooking, conditioning,
+        balcony,
+        electricity_price,
+        water_price,
+        other_utility,
+        time_post,
+        images_room,
+        status: 'pending'
+      }
+    }).then((result) => {
+      if (!result.error && result.status === 200) {
+        window.location.href = '/';
+        alert('Bài viết đã được gia hạn. Chờ ADMIN phê duyệt');
+      } else {
+        alert(result.message);
+      }
+    }).catch((error) => {
 
+    })
+  } 
   $.ajax({
     method: 'put',
     url: '/owners/update-post-room/' + idPost,
@@ -456,8 +722,8 @@ function handleSavePost() {
     }
   }).then((result) => {
     if (!result.error && result.status === 200) {
-      alert(result.message);
-      window.location.href = '/table';
+      alert('Bài viết đã được sửa. Chờ ADMIN phê duyệt');
+      window.location.href = '/';
     } else {
       alert(result.message);
     }

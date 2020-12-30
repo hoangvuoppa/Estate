@@ -148,7 +148,7 @@ function getAllPosts() {
                 $.ajax({
                   url: '/owners/update-post-room/' + post._id,
                   method: 'put',
-                  data: { status: 'pending' }
+                  data: { status: 'expired' }
                 }).then((result) => { }).catch((error) => { });
               }
             }
@@ -200,19 +200,38 @@ function getAllPosts() {
           }
         }
         else {
-          template = `
+          // Hiện ra các phần khi hết hạn
+          if (post.status === 'expired') {
+            template = `
           <tr>
             <th>${post.idOwner.name}</th>
             <th>${post._id}</th>
             <td>${post.idOwner.role}</td>
             <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+            <td></td>  
             <td>${post.status}</td>  
             <td></td>  
-            <td>
-             <span style="  cursor: pointer;" onClick=handleRestorePost.call(this)  data-id='${post._id}' class="restore ml-4"><i class="fas fa-trash-restore"></i></span> 
-            </td> 
+            <td></td>  
+            <td></td>
           </tr>  
           `;
+          } else {
+            //Nếu là cancel
+            template = `
+            <tr>
+              <th>${post.idOwner.name}</th>
+              <th>${post._id}</th>
+              <td>${post.idOwner.role}</td>
+              <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+              <td></td>  
+              <td>${post.status}</td>  
+              <td></td>  
+              <td>
+               <span style="  cursor: pointer;" onClick=handleRestorePost.call(this)  data-id='${post._id}' class="restore ml-4"><i class="fas fa-trash-restore"></i></span> 
+              </td> 
+            </tr>  
+            `;
+          }
         }
         $(".content-all-posts").append(template);
         $(".button-hired").append(rentStatus);

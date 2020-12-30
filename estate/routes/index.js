@@ -36,9 +36,6 @@ router.get('/modify', checkAuth, checkOwner, function (req, res, next) {
 router.get('/waiting-for-approval', checkAuth, checkOwner, function (req, res, next) {
   res.render('owners/wait-approve-info', { title: 'Waiting Approve' });
 });
-router.get('/table', checkAuth, checkOwner, function (req, res,) {
-  res.render('owners/tableList', { title: 'Table List' });
-})
 router.get('/chat-room', checkAuth, checkOwner_Admin, function (req, res,) {
   res.render('owners/chat-room', { title: 'Table List' });
 })
